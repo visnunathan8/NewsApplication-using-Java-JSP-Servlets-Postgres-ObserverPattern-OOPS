@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.concordia.app.news.entity.UserAccount"/>
+    <fullyQualifiedTypeName name="com.newsapp.repository.UserAccountRepository"/>
+    <fullyQualifiedTypeName name="com.newsapp.entity.UserAccount"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+</qualifiedTypeNameHistroy>
