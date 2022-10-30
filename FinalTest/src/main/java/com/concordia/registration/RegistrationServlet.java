@@ -13,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.concordia.entity.UserAccount;
+import com.concordia.repository.UserAccountRepository;
  
 /**
  * Servlet implementation class RegistrationServlet
@@ -25,24 +28,22 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		UserAccountRepository useraccountrep = new UserAccountRepository();
 		String uname = request.getParameter("name");
 		String upwd = request.getParameter("pass");
 		String uemail = request.getParameter("email");
 		String umobile = request.getParameter("contact");
+		UserAccount useraccount = new UserAccount();
+		useraccount.setUsername(uname);
+		useraccount.setPassword(upwd);
+		useraccount.setUserEmail(uemail);
+		useraccount.setUserMobile(umobile);
 		RequestDispatcher dispatcher = null;
 		Connection con = null;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userdb?useSSL=false","root", "root@123" );
-			PreparedStatement pst = con.prepareStatement("Insert into UserAccount(uname, upwd, uemail, umobile) values(?,?,?,?)");
-			pst.setString(1, uname);
-			pst.setString(2, upwd);
-			pst.setString(3, uemail);
-			pst.setString(4, umobile);
-			int rowCount = pst.executeUpdate();
+			boolean status = useraccountrep.insertToDatabase(useraccount);
 			dispatcher = request.getRequestDispatcher("registration.jsp");
-			if(rowCount > 0) {
+			if(status) {
 				request.setAttribute("status", "success");
 			}else {
 				request.setAttribute("status", "failed");
@@ -50,13 +51,6 @@ public class RegistrationServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 

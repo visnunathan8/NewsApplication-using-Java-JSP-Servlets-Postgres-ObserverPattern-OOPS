@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.concordia.entity.UserAccount;
+import com.concordia.repository.UserAccountRepository;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -24,26 +27,20 @@ public class LoginServlet extends HttpServlet {
        
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uemail = request.getParameter("username");
-		String upwd = request.getParameter("password");
+		UserAccountRepository useraccountrep = new UserAccountRepository();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = null;
-		PrintWriter prt = response.getWriter();
-		prt.print("hello");
+		//PrintWriter prt = response.getWriter();
+		UserAccount useraccount = new UserAccount();
+		useraccount.setUsername(username);
+		useraccount.setPassword(password);
 		try { 
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/userdb?useSSL=false","root","root@123");
-			PreparedStatement pst = con.prepareStatement("select * from UserAccount where uname = ? and upwd = ?");
-			pst.setString(1, uemail);
-			pst.setString(2, upwd);
-			ResultSet rs = pst.executeQuery();
-//			PrintWriter prt = response.getWriter();
-			if (rs.next()) {
-				prt.print("hello");
-				session.setAttribute("name", rs.getString("uname"));
+			if (useraccountrep.validate(useraccount)) {
+				session.setAttribute("name", username);
 				dispatcher = request.getRequestDispatcher("index.jsp");
 			}else {
-				prt.print("world"+rs);
 				request.setAttribute("status", "failed"); 
 				dispatcher = request.getRequestDispatcher("login.jsp");
 			}
