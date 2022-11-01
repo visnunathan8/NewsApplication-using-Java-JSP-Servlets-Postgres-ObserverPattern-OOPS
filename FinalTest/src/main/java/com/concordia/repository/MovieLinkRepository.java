@@ -24,10 +24,20 @@ public class MovieLinkRepository {
 			ps.setString(1, movielink.getType());
 			ps.setString(2, movielink.getURL());
 			ps.setString(3, movielink.getSuggested_link_text());
-			int rowCount = ps.executeUpdate();
+			ps.executeUpdate();
+			
+			ps = con.prepareStatement(sqlmulti);
+			if(movielink!=null && movielink.getType() != null)
+				ps.setString(1, movielink.getType());
+			else 
+				ps.setString(1, null);
+			if(movielink!=null && movielink.getURL() != null)
+				ps.setString(2, movielink.getURL());
+			else
+				ps.setString(2, null);
 			ResultSet val = ps.executeQuery();
 			if(val.next())
-				number = val.getInt("MultimediaId");
+				number = val.getInt("Linkid");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

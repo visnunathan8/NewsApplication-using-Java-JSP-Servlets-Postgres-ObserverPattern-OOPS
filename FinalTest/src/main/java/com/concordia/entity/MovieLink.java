@@ -37,7 +37,7 @@ public class MovieLink {
 		MovieLink movielink = new MovieLink();
 		if(linkData != null) {
 			if(linkData.get("type")!=null && !(linkData.get("type").toString().isEmpty())) 
-				movielink.setType(linkData.get("Type").toString());
+				movielink.setType(linkData.get("type").toString());
 			if(linkData.get("url")!=null && !(linkData.get("url").toString().isEmpty())) 
 				movielink.setURL(linkData.get("url").toString());
 			if(linkData.get("suggested_link_text")!=null && !(linkData.get("suggested_link_text").toString().isEmpty())) 

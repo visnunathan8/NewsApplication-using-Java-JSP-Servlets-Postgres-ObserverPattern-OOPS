@@ -22,7 +22,6 @@ public class ReviewRepository {
 		int multimediaId = MultimediaRepository.insertToMultimediaTable(multimedia);
 		
 		int movieLinkId = MovieLinkRepository.insertToMovieLinkTable(movieLink);
-		
 		boolean status = false;
 		
 		String sql = "Insert into review(display_title, mpaa_rating, critics_pick, byline, headline, summary_short, publication_date, opening_date, date_updated, movielinkId, multimediaId) values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -38,8 +37,8 @@ public class ReviewRepository {
 			ps.setString(7, reviewData.getPublication_date());
 			ps.setString(8, reviewData.getOpening_date());
 			ps.setString(9, reviewData.getDate_updated());
-			ps.setInt(10, reviewData.getMovielinkId());
-			ps.setInt(11, reviewData.getMultimediaId());
+			ps.setInt(10, multimediaId);
+			ps.setInt(11, movieLinkId);
 			int rowCount = ps.executeUpdate();
 			if(rowCount > 0) {
 				status = true;

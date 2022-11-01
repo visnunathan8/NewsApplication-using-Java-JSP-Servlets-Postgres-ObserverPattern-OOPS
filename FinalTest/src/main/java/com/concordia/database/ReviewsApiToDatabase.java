@@ -17,7 +17,6 @@ public class ReviewsApiToDatabase {
 		for(int i=0; i<results.size(); i++) {
 			JSONObject data = (JSONObject) results.get(i);
 			review = Review.setAllReviewDataObject(data);
-			System.out.println("TTTTTT"+review);
 			 ReviewRepository.insertToReviewTable(review);
 		}
 	}
