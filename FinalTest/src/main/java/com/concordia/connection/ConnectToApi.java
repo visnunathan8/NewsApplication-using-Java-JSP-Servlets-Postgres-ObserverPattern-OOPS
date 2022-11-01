@@ -54,4 +54,8 @@ public class ConnectToApi {
 		String url = "https://api.nytimes.com/svc/movies/v2/reviews/picks.json?api-key=WadOSxHKnxkdxCW0uz8oh0WJPZnoVHcp";
 		return getData(url);
 	}
+	public static JSONObject getArticleData() {
+		String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=WadOSxHKnxkdxCW0uz8oh0WJPZnoVHcp";
+		return getData(url);
+	}
 }
