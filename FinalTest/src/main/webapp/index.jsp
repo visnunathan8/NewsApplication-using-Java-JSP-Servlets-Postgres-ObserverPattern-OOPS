@@ -58,6 +58,13 @@
 		</div>
 	</nav>
 	<!-- Masthead-->
+	
+	<div> 
+		<% com.concordia.database.CriticsApiToDatabase.convertAllMovieCriticDataToDatabase();%>
+		<% com.concordia.database.ReviewsApiToDatabase.convertPicksMovieReviewsDataToDatabase();%>
+		
+	</div>
+	
 	<header class="masthead bg-primary text-white text-center">
 		<div class="container d-flex align-items-center flex-column">
 			<!-- Masthead Avatar Image-->
