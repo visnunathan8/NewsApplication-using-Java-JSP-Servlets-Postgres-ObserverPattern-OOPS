@@ -6,6 +6,8 @@ public class UserAccount {
 	protected String password;
 	protected String userEmail;
 	protected String userMobile;
+	protected String userType;
+	
 	
 	public int getUserId() {
 		return userId;
@@ -37,6 +39,11 @@ public class UserAccount {
 	public void setUserMobile(String userMobile) {
 		this.userMobile = userMobile;
 	}
-	
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 	
 }

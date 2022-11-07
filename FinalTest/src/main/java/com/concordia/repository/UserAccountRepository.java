@@ -29,6 +29,10 @@ public class UserAccountRepository {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return status;
 	}
@@ -41,7 +45,7 @@ public class UserAccountRepository {
 		Connection con = ConnectToSql.getConnection();
 
 		
-		String sql = "Insert into UserAccount(username, password, userEmail, userMobile) values(?,?,?,?)";
+		String sql = "Insert into UserAccount(username, password, userEmail, userMobile, userType) values(?,?,?,?,?)";
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(sql);
@@ -49,6 +53,11 @@ public class UserAccountRepository {
 			ps.setString(2, useraccount.getPassword());
 			ps.setString(3, useraccount.getUserEmail());
 			ps.setString(4, useraccount.getUserMobile());
+			if(useraccount.getUsername().startsWith("admin")) {
+				ps.setString(5, "A");
+			}else { 
+				ps.setString(5, "U");
+			}
 			int rowCount = ps.executeUpdate();
 			if(rowCount > 0) {
 				status = true;
@@ -58,6 +67,10 @@ public class UserAccountRepository {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return status;
 	}

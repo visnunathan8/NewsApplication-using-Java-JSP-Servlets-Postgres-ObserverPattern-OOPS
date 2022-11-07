@@ -1,8 +1,29 @@
+<%@page import="com.concordia.repository.ReviewRepository"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="com.concordia.entity.Review"%>
 <%
 	if(session.getAttribute("name") == null ) {
 		response.sendRedirect("login.jsp");
 	}
 %>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +32,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Freelancer - Start Bootstrap Theme</title>
+<title>NewsApp</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -32,7 +53,7 @@
 		class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
 		id="mainNav">
 		<div class="container">
-			<a class="navbar-brand" href="#page-top">Unique Developer</a>
+			<a class="navbar-brand" href="#page-top">News Application</a>
 			<button
 				class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
 				type="button" data-bs-toggle="collapse"
@@ -43,11 +64,11 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item mx-0 mx-lg-1"><a
-						class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Movie Reviews</a></li>
 					<li class="nav-item mx-0 mx-lg-1"><a
-						class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Subscribed Content </a></li>
 					<li class="nav-item mx-0 mx-lg-1"><a
-						class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Subscriber list</a></li>
 					<li class="nav-item mx-0 mx-lg-1"><a
 						class="nav-link py-3 px-0 px-lg-3 rounded" href="logout">Logout</a></li>
 					<li class="nav-item mx-0 mx-lg-1 bg-danger"><a
@@ -60,8 +81,6 @@
 	<!-- Masthead-->
 	
 	<div> 
-		<% com.concordia.database.CriticsApiToDatabase.convertAllMovieCriticDataToDatabase();%>
-		<% com.concordia.database.ReviewsApiToDatabase.convertPicksMovieReviewsDataToDatabase();%>
 		
 	</div>
 	
@@ -71,7 +90,7 @@
 			<img class="masthead-avatar mb-5" src="assets/img/avataaars.svg"
 				alt="..." />
 			<!-- Masthead Heading-->
-			<h1 class="masthead-heading text-uppercase mb-0">Welcome To Unique Developer</h1>
+			<h1 class="masthead-heading text-uppercase mb-0">Welcome To NewsApp</h1>
 			<!-- Icon Divider-->
 			<div class="divider-custom divider-light">
 				<div class="divider-custom-line"></div>
@@ -81,8 +100,7 @@
 				<div class="divider-custom-line"></div>
 			</div>
 			<!-- Masthead Subheading-->
-			<p class="masthead-subheading font-weight-light mb-0">Java
-				Development - Web Development - Python</p>
+			<p class="masthead-subheading font-weight-light mb-0">MovieReviews-MultiMedia-MovieLink</p>
 		</div>
 	</header>
 	<!-- Portfolio Section-->
@@ -90,7 +108,7 @@
 		<div class="container">
 			<!-- Portfolio Section Heading-->
 			<h2
-				class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+				class="page-section-heading text-center text-uppercase text-secondary mb-0">Movie Reviews</h2>
 			<!-- Icon Divider-->
 			<div class="divider-custom">
 				<div class="divider-custom-line"></div>
@@ -99,12 +117,19 @@
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
+			<div style="height:400px;overflow:auto;">
+			<%
+			ArrayList<Review> review = ReviewRepository.selectFromReviewTable();
+			for(int i=0; i<review.size(); i+=3) {
+			System.out.println(i);
+			%>
+			
 			<!-- Portfolio Grid Items-->
 			<div class="row justify-content-center">
 				<!-- Portfolio Item 1-->
 				<div class="col-md-6 col-lg-4 mb-5">
 					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-						data-bs-target="#portfolioModal1">
+						data-bs-target="#portfolioModal<%=i%>">
 						<div
 							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
 							<div
@@ -112,14 +137,17 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="assets/img/portfolio/cabin.png"
-							alt="..." />
+						<div style="padding-top:30px;text-align: center;height:100px;text-align: center;border: 3px solid green;">
+							<%-- <div class="img-fluid" >Review <%=i%>    </div> --%>
+							<div><b><%= review.get(i).getDisplay_title() %></b></div>
+						</div>
 					</div>
 				</div>
 				<!-- Portfolio Item 2-->
+				<%if((i+1) < review.size()) { %>
 				<div class="col-md-6 col-lg-4 mb-5">
 					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-						data-bs-target="#portfolioModal2">
+						data-bs-target="#portfolioModal<%=i+1%>">
 						<div
 							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
 							<div
@@ -127,14 +155,18 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="assets/img/portfolio/cake.png"
-							alt="..." />
+						<div style="padding-top:30px;text-align: center;height:100px;text-align: center;border: 3px solid green;">
+							<%-- <div class="img-fluid" >Review <%=i+1%>    </div> --%>
+							<div><b><%= review.get(i+1).getDisplay_title() %></b></div>
+						</div>
 					</div>
 				</div>
+				<%} %>
 				<!-- Portfolio Item 3-->
+				<%if((i+2) < review.size()) { %>
 				<div class="col-md-6 col-lg-4 mb-5">
 					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-						data-bs-target="#portfolioModal3">
+						data-bs-target="#portfolioModal<%=i+2%>">
 						<div
 							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
 							<div
@@ -142,55 +174,15 @@
 								<i class="fas fa-plus fa-3x"></i>
 							</div>
 						</div>
-						<img class="img-fluid" src="assets/img/portfolio/circus.png"
-							alt="..." />
-					</div>
-				</div>
-				<!-- Portfolio Item 4-->
-				<div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-						data-bs-target="#portfolioModal4">
-						<div
-							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div
-								class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
+						<div style="padding-top:30px;text-align: center;height:100px;text-align: center;border: 3px solid green;">
+							<%-- <div class="img-fluid" >Review <%=i+2%>    </div> --%>
+							<div><b><%= review.get(i+2).getDisplay_title() %></b></div>
 						</div>
-						<img class="img-fluid" src="assets/img/portfolio/game.png"
-							alt="..." />
 					</div>
 				</div>
-				<!-- Portfolio Item 5-->
-				<div class="col-md-6 col-lg-4 mb-5 mb-md-0">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-						data-bs-target="#portfolioModal5">
-						<div
-							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div
-								class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div>
-						<img class="img-fluid" src="assets/img/portfolio/safe.png"
-							alt="..." />
-					</div>
-				</div>
-				<!-- Portfolio Item 6-->
-				<div class="col-md-6 col-lg-4">
-					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-						data-bs-target="#portfolioModal6">
-						<div
-							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-							<div
-								class="portfolio-item-caption-content text-center text-white">
-								<i class="fas fa-plus fa-3x"></i>
-							</div>
-						</div>
-						<img class="img-fluid" src="assets/img/portfolio/submarine.png"
-							alt="..." />
-					</div>
-				</div>
+			<%}
+				} %>	
+			</div>
 			</div>
 		</div>
 	</section>
@@ -199,7 +191,7 @@
 		<div class="container">
 			<!-- About Section Heading-->
 			<h2
-				class="page-section-heading text-center text-uppercase text-white">About</h2>
+				class="page-section-heading text-center text-uppercase text-white">SUBSCRIBED CONTENT</h2>
 			<!-- Icon Divider-->
 			<div class="divider-custom divider-light">
 				<div class="divider-custom-line"></div>
@@ -208,27 +200,10 @@
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
-			<!-- About Section Content-->
-			<div class="row">
-				<div class="col-lg-4 ms-auto">
-					<p class="lead">Freelancer is a free bootstrap theme created by
-						Start Bootstrap. The download includes the complete source files
-						including HTML, CSS, and JavaScript as well as optional SASS
-						stylesheets for easy customization.</p>
-				</div>
-				<div class="col-lg-4 me-auto">
-					<p class="lead">You can create your own custom avatar for the
-						masthead, change the icon in the dividers, and add your email
-						address to the contact form to make it fully functional!</p>
-				</div>
+			<div style="width:1300px;height:700px;background-color:white">
+			
 			</div>
-			<!-- About Section Button-->
-			<div class="text-center mt-4">
-				<a class="btn btn-xl btn-outline-light"
-					href="https://startbootstrap.com/theme/freelancer/"> <i
-					class="fas fa-download me-2"></i> Free Download!
-				</a>
-			</div>
+			
 		</div>
 	</section>
 	<!-- Contact Section-->
@@ -236,8 +211,7 @@
 		<div class="container">
 			<!-- Contact Section Heading-->
 			<h2
-				class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact
-				Me</h2>
+				class="page-section-heading text-center text-uppercase text-secondary mb-0">SUBCRIBER LIST</h2>
 			<!-- Icon Divider-->
 			<div class="divider-custom">
 				<div class="divider-custom-line"></div>
@@ -246,72 +220,12 @@
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
-			<!-- Contact Section Form-->
+			<!-- Subscriber Section -->
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
-					<!-- * * * * * * * * * * * * * * *-->
-					<!-- * * SB Forms Contact Form * *-->
-					<!-- * * * * * * * * * * * * * * *-->
-					<!-- This form is pre-integrated with SB Forms.-->
-					<!-- To make this form functional, sign up at-->
-					<!-- https://startbootstrap.com/solution/contact-forms-->
-					<!-- to get an API token!-->
-					<form id="contactForm" data-sb-form-api-token="API_TOKEN">
-						<!-- Name input-->
-						<div class="form-floating mb-3">
-							<input class="form-control" id="name" type="text"
-								placeholder="Enter your name..." data-sb-validations="required" />
-							<label for="name">Full name</label>
-							<div class="invalid-feedback" data-sb-feedback="name:required">A
-								name is required.</div>
-						</div>
-						<!-- Email address input-->
-						<div class="form-floating mb-3">
-							<input class="form-control" id="email" type="email"
-								placeholder="name@example.com"
-								data-sb-validations="required,email" /> <label for="email">Email
-								address</label>
-							<div class="invalid-feedback" data-sb-feedback="email:required">An
-								email is required.</div>
-							<div class="invalid-feedback" data-sb-feedback="email:email">Email
-								is not valid.</div>
-						</div>
-						<!-- Phone number input-->
-						<div class="form-floating mb-3">
-							<input class="form-control" id="phone" type="tel"
-								placeholder="(123) 456-7890" data-sb-validations="required" />
-							<label for="phone">Phone number</label>
-							<div class="invalid-feedback" data-sb-feedback="phone:required">A
-								phone number is required.</div>
-						</div>
-						<!-- Message input-->
-						<div class="form-floating mb-3">
-							<textarea class="form-control" id="message" type="text"
-								placeholder="Enter your message here..." style="height: 10rem"
-								data-sb-validations="required"></textarea>
-							<label for="message">Message</label>
-							<div class="invalid-feedback" data-sb-feedback="message:required">A
-								message is required.</div>
-						</div>
-						<!-- Submit success message-->
-						<!---->
-						<!-- This is what your users will see when the form-->
-						<!-- has successfully submitted-->
-						<div class="d-none" id="submitSuccessMessage">
-							<div class="text-center mb-3">
-								<div class="fw-bolder">Form submission successful!</div>
-								To activate this form, sign up at <br /> <a
-									href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-							</div>
-						</div>
-						<!-- Submit error message-->
-						<!---->
-						<!-- This is what your users will see when there is-->
-						<!-- an error submitting the form-->
-						<div class="d-none" id="submitErrorMessage">
-							<div class="text-center text-danger mb-3">Error sending
-								message!</div>
-						</div>
+					
+					<form id="contactForm" method="post" action="login">
+						
 						<!-- Submit Button-->
 						<button class="btn btn-primary btn-xl disabled" id="submitButton"
 							type="submit">Send</button>
@@ -360,10 +274,15 @@
 			<small>Copyright &copy; Your Website 2021</small>
 		</div>
 	</div>
+	<%
+	ArrayList<Review> data = ReviewRepository.selectFromReviewTable();
+	for(int j=0; j<data.size(); j+=3) {
+		
+	%>
 	<!-- Portfolio Modals-->
 	<!-- Portfolio Modal 1-->
-	<div class="portfolio-modal modal fade" id="portfolioModal1"
-		tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
+	<div class="portfolio-modal modal fade" id="portfolioModal<%=j%>"
+		tabindex="-1" aria-labelledby="portfolioModal<%=j%>" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header border-0">
@@ -375,9 +294,9 @@
 						<div class="row justify-content-center">
 							<div class="col-lg-8">
 								<!-- Portfolio Modal - Title-->
+								
 								<h2
-									class="portfolio-modal-title text-secondary text-uppercase mb-0">Log
-									Cabin</h2>
+									class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= review.get(j).getDisplay_title() %></h2>
 								<!-- Icon Divider-->
 								<div class="divider-custom">
 									<div class="divider-custom-line"></div>
@@ -386,19 +305,102 @@
 									</div>
 									<div class="divider-custom-line"></div>
 								</div>
-								<!-- Portfolio Modal - Image-->
-								<img class="img-fluid rounded mb-5"
-									src="assets/img/portfolio/cabin.png" alt="..." />
-								<!-- Portfolio Modal - Text-->
-								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Mollitia neque assumenda ipsam nihil,
-									molestias magnam, recusandae quos quis inventore quisquam velit
-									asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
-									itaque. Nam.</p>
-								<button class="btn btn-primary" href="#!"
-									data-bs-dismiss="modal">
-									<i class="fas fa-times fa-fw"></i> Close Window
-								</button>
+								
+								<div style="height:400px;overflow:auto;">
+																
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Movie Review Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> HEADLINE : </td><td> <%= review.get(j).getHeadline() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>MPAA RATING : </td><td> <%= review.get(j).getMpaa_rating() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>CRITICS PICK : </td><td> <%= review.get(j).getCritics_pick() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>DATE UPDATED : </td><td> <%= review.get(j).getDate_updated() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>BY LINE : </td><td> <%= review.get(j).getByline() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>OPENING DATE : </td><td> <%= review.get(j).getOpening_date() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>PUBLICATION DATE : </td><td> <%= review.get(j).getPublication_date() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>SHORT SUMMARY : </td><td> <%= review.get(j).getSummary_short() %> </td>
+									</div>
+								</tr>
+								
+								</table><br/><br/>
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Multimedia Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> MULTIMEDIA TYPE : </td><td> <%= review.get(j).getMultimedia().getType() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> CREDIT : </td><td> <%= review.get(j).getMultimedia().getCredit() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> SOURCE : </td><td> <%= review.get(j).getMultimedia().getSrc() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> HEIGHT : </td><td> <%= review.get(j).getMultimedia().getHeight() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> WEIDTH : </td><td> <%= review.get(j).getMultimedia().getWidth() %> </td>
+									</div>
+								</tr>
+								</table>
+								
+								</table><br/><br/>
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> MovieLink Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> MOVIELINK TYPE : </td><td> <%= review.get(j).getMovielink().getType() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> MOVIELINK URL : </td><td> <%= review.get(j).getMovielink().getURL() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> MOVIELINK SUGGESTED LINK TEXT : </td><td> <%= review.get(j).getMovielink().getSuggested_link_text() %> </td>
+									</div>
+								</tr>
+								</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -406,9 +408,10 @@
 			</div>
 		</div>
 	</div>
+	<%if((j+1) < review.size()) { %>
 	<!-- Portfolio Modal 2-->
-	<div class="portfolio-modal modal fade" id="portfolioModal2"
-		tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
+	<div class="portfolio-modal modal fade" id="portfolioModal<%=j+1%>"
+		tabindex="-1" aria-labelledby="portfolioModal<%=j+1%>" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header border-0">
@@ -421,8 +424,7 @@
 							<div class="col-lg-8">
 								<!-- Portfolio Modal - Title-->
 								<h2
-									class="portfolio-modal-title text-secondary text-uppercase mb-0">Tasty
-									Cake</h2>
+									class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= review.get(j+1).getDisplay_title() %></h2>
 								<!-- Icon Divider-->
 								<div class="divider-custom">
 									<div class="divider-custom-line"></div>
@@ -431,19 +433,101 @@
 									</div>
 									<div class="divider-custom-line"></div>
 								</div>
-								<!-- Portfolio Modal - Image-->
-								<img class="img-fluid rounded mb-5"
-									src="assets/img/portfolio/cake.png" alt="..." />
-								<!-- Portfolio Modal - Text-->
-								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Mollitia neque assumenda ipsam nihil,
-									molestias magnam, recusandae quos quis inventore quisquam velit
-									asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
-									itaque. Nam.</p>
-								<button class="btn btn-primary" href="#!"
-									data-bs-dismiss="modal">
-									<i class="fas fa-times fa-fw"></i> Close Window
-								</button>
+								<div style="height:400px;overflow:auto;">
+																
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Movie Review Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> HEADLINE : </td><td> <%= review.get(j+1).getHeadline() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>MPAA RATING : </td><td> <%= review.get(j+1).getMpaa_rating() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>CRITICS PICK : </td><td> <%= review.get(j+1).getCritics_pick() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>DATE UPDATED : </td><td> <%= review.get(j+1).getDate_updated() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>BY LINE : </td><td> <%= review.get(j+1).getByline() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>OPENING DATE : </td><td> <%= review.get(j+1).getOpening_date() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>PUBLICATION DATE : </td><td> <%= review.get(j+1).getPublication_date() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>SHORT SUMMARY : </td><td> <%= review.get(j+1).getSummary_short() %> </td>
+									</div>
+								</tr>
+								
+								</table><br/><br/>
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Multimedia Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> MULTIMEDIA TYPE : </td><td> <%= review.get(j+1).getMultimedia().getType() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> CREDIT : </td><td> <%= review.get(j+1).getMultimedia().getCredit() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> SOURCE : </td><td> <%= review.get(j+1).getMultimedia().getSrc() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> HEIGHT : </td><td> <%= review.get(j+1).getMultimedia().getHeight() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> WEIDTH : </td><td> <%= review.get(j+1).getMultimedia().getWidth() %> </td>
+									</div>
+								</tr>
+								</table>
+								
+								</table><br/><br/>
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> MovieLink Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> MOVIELINK TYPE : </td><td> <%= review.get(j+1).getMovielink().getType() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> MOVIELINK URL : </td><td> <%= review.get(j+1).getMovielink().getURL() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> MOVIELINK SUGGESTED LINK TEXT : </td><td> <%= review.get(j+1).getMovielink().getSuggested_link_text() %> </td>
+									</div>
+								</tr>
+								</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -451,9 +535,11 @@
 			</div>
 		</div>
 	</div>
+	<%} %>
 	<!-- Portfolio Modal 3-->
-	<div class="portfolio-modal modal fade" id="portfolioModal3"
-		tabindex="-1" aria-labelledby="portfolioModal3" aria-hidden="true">
+	<%if((j+2) < review.size()) {%>
+	<div class="portfolio-modal modal fade" id="portfolioModal<%=j+2%>"
+		tabindex="-1" aria-labelledby="portfolioModal<%=j+2%>" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header border-0">
@@ -465,9 +551,8 @@
 						<div class="row justify-content-center">
 							<div class="col-lg-8">
 								<!-- Portfolio Modal - Title-->
-								<h2
-									class="portfolio-modal-title text-secondary text-uppercase mb-0">Circus
-									Tent</h2>
+								<h2 
+									class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= review.get(j+2).getDisplay_title() %></h2>
 								<!-- Icon Divider-->
 								<div class="divider-custom">
 									<div class="divider-custom-line"></div>
@@ -476,152 +561,101 @@
 									</div>
 									<div class="divider-custom-line"></div>
 								</div>
-								<!-- Portfolio Modal - Image-->
-								<img class="img-fluid rounded mb-5"
-									src="assets/img/portfolio/circus.png" alt="..." />
-								<!-- Portfolio Modal - Text-->
-								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Mollitia neque assumenda ipsam nihil,
-									molestias magnam, recusandae quos quis inventore quisquam velit
-									asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
-									itaque. Nam.</p>
-								<button class="btn btn-primary" href="#!"
-									data-bs-dismiss="modal">
-									<i class="fas fa-times fa-fw"></i> Close Window
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Portfolio Modal 4-->
-	<div class="portfolio-modal modal fade" id="portfolioModal4"
-		tabindex="-1" aria-labelledby="portfolioModal4" aria-hidden="true">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header border-0">
-					<button class="btn-close" type="button" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body text-center pb-5">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-lg-8">
-								<!-- Portfolio Modal - Title-->
-								<h2
-									class="portfolio-modal-title text-secondary text-uppercase mb-0">Controller</h2>
-								<!-- Icon Divider-->
-								<div class="divider-custom">
-									<div class="divider-custom-line"></div>
-									<div class="divider-custom-icon">
-										<i class="fas fa-star"></i>
+								<div style="height:400px;overflow:auto;">
+																
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Movie Review Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> HEADLINE : </td><td> <%= review.get(j+2).getHeadline() %> </td>
 									</div>
-									<div class="divider-custom-line"></div>
-								</div>
-								<!-- Portfolio Modal - Image-->
-								<img class="img-fluid rounded mb-5"
-									src="assets/img/portfolio/game.png" alt="..." />
-								<!-- Portfolio Modal - Text-->
-								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Mollitia neque assumenda ipsam nihil,
-									molestias magnam, recusandae quos quis inventore quisquam velit
-									asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
-									itaque. Nam.</p>
-								<button class="btn btn-primary" href="#!"
-									data-bs-dismiss="modal">
-									<i class="fas fa-times fa-fw"></i> Close Window
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Portfolio Modal 5-->
-	<div class="portfolio-modal modal fade" id="portfolioModal5"
-		tabindex="-1" aria-labelledby="portfolioModal5" aria-hidden="true">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header border-0">
-					<button class="btn-close" type="button" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body text-center pb-5">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-lg-8">
-								<!-- Portfolio Modal - Title-->
-								<h2
-									class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked
-									Safe</h2>
-								<!-- Icon Divider-->
-								<div class="divider-custom">
-									<div class="divider-custom-line"></div>
-									<div class="divider-custom-icon">
-										<i class="fas fa-star"></i>
+								</tr>
+								<tr>
+									<div>
+										<td>MPAA RATING : </td><td> <%= review.get(j+2).getMpaa_rating() %> </td>
 									</div>
-									<div class="divider-custom-line"></div>
-								</div>
-								<!-- Portfolio Modal - Image-->
-								<img class="img-fluid rounded mb-5"
-									src="assets/img/portfolio/safe.png" alt="..." />
-								<!-- Portfolio Modal - Text-->
-								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Mollitia neque assumenda ipsam nihil,
-									molestias magnam, recusandae quos quis inventore quisquam velit
-									asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
-									itaque. Nam.</p>
-								<button class="btn btn-primary" href="#!"
-									data-bs-dismiss="modal">
-									<i class="fas fa-times fa-fw"></i> Close Window
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Portfolio Modal 6-->
-	<div class="portfolio-modal modal fade" id="portfolioModal6"
-		tabindex="-1" aria-labelledby="portfolioModal6" aria-hidden="true">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header border-0">
-					<button class="btn-close" type="button" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body text-center pb-5">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-lg-8">
-								<!-- Portfolio Modal - Title-->
-								<h2
-									class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>
-								<!-- Icon Divider-->
-								<div class="divider-custom">
-									<div class="divider-custom-line"></div>
-									<div class="divider-custom-icon">
-										<i class="fas fa-star"></i>
+								</tr>
+								<tr>
+									<div>
+										<td>CRITICS PICK : </td><td> <%= review.get(j+2).getCritics_pick() %> </td>
 									</div>
-									<div class="divider-custom-line"></div>
+								</tr>
+								<tr>
+									<div>
+										<td>DATE UPDATED : </td><td> <%= review.get(j+2).getDate_updated() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>BY LINE : </td><td> <%= review.get(j+2).getByline() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>OPENING DATE : </td><td> <%= review.get(j+2).getOpening_date() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>PUBLICATION DATE : </td><td> <%= review.get(j+2).getPublication_date() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td>SHORT SUMMARY : </td><td> <%= review.get(j+2).getSummary_short() %> </td>
+									</div>
+								</tr>
+								
+								</table><br/><br/>
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Multimedia Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> MULTIMEDIA TYPE : </td><td> <%= review.get(j+2).getMultimedia().getType() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> CREDIT : </td><td> <%= review.get(j+2).getMultimedia().getCredit() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> SOURCE : </td><td> <%= review.get(j+2).getMultimedia().getSrc() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> HEIGHT : </td><td> <%= review.get(j+2).getMultimedia().getHeight() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> WEIDTH : </td><td> <%= review.get(j+2).getMultimedia().getWidth() %> </td>
+									</div>
+								</tr>
+								</table>
+								
+								</table><br/><br/>
+								<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> MovieLink Details : </div><br/><br/><br/>
+								<table>
+								<tr>
+									<div>
+										<td> MOVIELINK TYPE : </td><td> <%= review.get(j+2).getMovielink().getType() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> MOVIELINK URL : </td><td> <%= review.get(j+2).getMovielink().getURL() %> </td>
+									</div>
+								</tr>
+								<tr>
+									<div>
+										<td> MOVIELINK SUGGESTED LINK TEXT : </td><td> <%= review.get(j+2).getMovielink().getSuggested_link_text() %> </td>
+									</div>
+								</tr>
+								</table>
 								</div>
-								<!-- Portfolio Modal - Image-->
-								<img class="img-fluid rounded mb-5"
-									src="assets/img/portfolio/submarine.png" alt="..." />
-								<!-- Portfolio Modal - Text-->
-								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Mollitia neque assumenda ipsam nihil,
-									molestias magnam, recusandae quos quis inventore quisquam velit
-									asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
-									itaque. Nam.</p>
-								<button class="btn btn-primary" href="#!"
-									data-bs-dismiss="modal">
-									<i class="fas fa-times fa-fw"></i> Close Window
-								</button>
 							</div>
 						</div>
 					</div>
@@ -629,6 +663,8 @@
 			</div>
 		</div>
 	</div>
+	<%}
+	}%>
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

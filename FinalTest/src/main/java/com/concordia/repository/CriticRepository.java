@@ -35,6 +35,10 @@ public class CriticRepository {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return status;
 	}

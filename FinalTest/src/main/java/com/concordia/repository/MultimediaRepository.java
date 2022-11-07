@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.concordia.connection.ConnectToSql;
+import com.concordia.entity.MovieLink;
 import com.concordia.entity.MultiMedia;
 
 public class MultimediaRepository {
@@ -57,8 +58,34 @@ public class MultimediaRepository {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return number;
+	}
+
+	public static MultiMedia selectFromMultimedia(int multimediaId) {
+		ConnectToSql.loadDriver();
+		Connection con = ConnectToSql.getConnection();
+		MultiMedia multimedia =  new MultiMedia();
+		String sql = "select * from multimedia where MultimediaId = "+multimediaId;
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ResultSet val = ps.executeQuery();
+			while(val.next()) {
+				multimedia.setType(val.getString("type"));
+				multimedia.setSrc(val.getString("src"));
+				multimedia.setWidth(val.getInt("width"));
+				multimedia.setHeight(val.getInt("height"));
+				multimedia.setCredit(val.getString("credit"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return multimedia;
 	}
 
 }

@@ -39,10 +39,14 @@ public class LoginServlet extends HttpServlet {
 		try { 
 			if (useraccountrep.validate(useraccount)) {
 				session.setAttribute("name", username);
-				dispatcher = request.getRequestDispatcher("index.jsp");
+				if(username.startsWith("admin")) {
+					dispatcher = request.getRequestDispatcher("admin.jsp");
+				}else {
+					dispatcher = request.getRequestDispatcher("index.jsp");
+				}
 			}else {
 				request.setAttribute("status", "failed"); 
-				dispatcher = request.getRequestDispatcher("login.jsp");
+				dispatcher = request.getRequestDispatcher("admin.jsp");
 			}
 			dispatcher.forward(request, response);
 		}catch (Exception e) {
