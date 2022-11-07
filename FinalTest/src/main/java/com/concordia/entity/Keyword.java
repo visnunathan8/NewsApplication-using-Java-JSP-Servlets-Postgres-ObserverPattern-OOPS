@@ -39,7 +39,7 @@ public class Keyword {
 	public void setMajor(String major) {
 		this.major = major;
 	}
-	public static Keyword setKeywordData(JSONObject keywordData) {
+	public static Keyword setAllKeywordData(JSONObject keywordData) {
 		Keyword keyword = new Keyword();
 		if(keywordData != null) {
 			if(keywordData.get("rank")!=null && !(keywordData.get("rank").toString().isEmpty()))
