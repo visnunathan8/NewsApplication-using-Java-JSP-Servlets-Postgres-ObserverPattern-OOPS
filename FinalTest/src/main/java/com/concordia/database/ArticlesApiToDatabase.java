@@ -16,7 +16,7 @@ public class ArticlesApiToDatabase {
 		for(int i=0; i<results.size(); i++) {
 			JSONObject data = (JSONObject) results.get(i);
 			articleData = Article.setAllArticleDataObject(data);
-			ArticleRepository.insertToArticleTable(articleData);
+			//ArticleRepository.insertToArticleTable(articleData);
 		}
 	}
 }

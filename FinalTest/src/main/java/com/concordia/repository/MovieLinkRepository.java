@@ -40,7 +40,33 @@ public class MovieLinkRepository {
 				number = val.getInt("Linkid");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return number;
 	}
+	public static MovieLink selectFromMovieLink(int movielinkid) {
+		MovieLink movie = new MovieLink();
+		ConnectToSql.loadDriver();
+		Connection con = ConnectToSql.getConnection();
+		
+		String sql = "select * from movielink where Linkid = "+movielinkid;
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ResultSet val = ps.executeQuery();
+			while(val.next()) {
+				movie.setType(val.getString("type"));
+				movie.setURL(val.getString("url"));
+				movie.setSuggested_link_text(val.getString("suggested_link_text"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return movie;
+	}
+
 }
