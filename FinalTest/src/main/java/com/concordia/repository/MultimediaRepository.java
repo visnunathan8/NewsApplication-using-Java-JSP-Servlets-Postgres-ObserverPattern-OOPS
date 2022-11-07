@@ -84,6 +84,11 @@ public class MultimediaRepository {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			System.out.println("CLOSING CONNNECTION");
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return multimedia;
 	}

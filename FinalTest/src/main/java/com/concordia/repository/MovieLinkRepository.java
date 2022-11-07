@@ -64,6 +64,11 @@ public class MovieLinkRepository {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			System.out.println("CLOSING CONNNECTION");
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		// TODO Auto-generated method stub
 		return movie;

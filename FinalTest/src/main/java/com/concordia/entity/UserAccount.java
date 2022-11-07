@@ -1,5 +1,6 @@
 package com.concordia.entity;
 
+
 public class UserAccount {
 	int userId;
 	protected String username;
@@ -45,5 +46,6 @@ public class UserAccount {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
+	
 	
 }

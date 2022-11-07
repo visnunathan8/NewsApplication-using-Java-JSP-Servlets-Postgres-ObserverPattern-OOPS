@@ -4,12 +4,42 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.apache.catalina.User;
 
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.UserAccount;
 
 public class UserAccountRepository {
 	
+	public String getUserId(UserAccount useraccount)
+	{
+		String id = "";
+		
+		ConnectToSql.loadDriver();
+		Connection con = ConnectToSql.getConnection();
+		 
+		String sql = "select userid from UserAccount where username = ? and password = ?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, useraccount.getUsername());
+			ps.setString(2, useraccount.getPassword());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) { 
+				id = rs.getString("userid");
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
+		}
+		return id;
+	}
 	
 	public boolean validate(UserAccount useraccount)
 	{
@@ -73,6 +103,34 @@ public class UserAccountRepository {
 				catch (SQLException ignore) {}
 		}
 		return status;
+	}
+	
+	public static ArrayList<UserAccount> getPublishers()
+	{
+		ConnectToSql.loadDriver();
+		Connection con = ConnectToSql.getConnection();
+		ArrayList<UserAccount> publisherIds = new ArrayList<UserAccount>();
+		String sql = "select * from UserAccount where userType = 'A'";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				UserAccount user = new UserAccount();
+				user.setUserId(rs.getInt("userid"));
+				user.setUsername(rs.getString("username"));
+				user.setUserEmail(rs.getString("userEmail"));
+				publisherIds.add(user);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
+		}
+		return publisherIds;
 	}
 	
 }

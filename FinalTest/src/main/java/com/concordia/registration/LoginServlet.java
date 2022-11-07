@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 		UserAccountRepository useraccountrep = new UserAccountRepository();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = null;
 		//PrintWriter prt = response.getWriter();
@@ -39,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 		try { 
 			if (useraccountrep.validate(useraccount)) {
 				session.setAttribute("name", username);
+				request.setAttribute("userid", useraccountrep.getUserId(useraccount));
 				if(username.startsWith("admin")) {
 					dispatcher = request.getRequestDispatcher("admin.jsp");
 				}else {
@@ -46,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 				}
 			}else {
 				request.setAttribute("status", "failed"); 
-				dispatcher = request.getRequestDispatcher("admin.jsp");
+				dispatcher = request.getRequestDispatcher("login.jsp");
 			}
 			dispatcher.forward(request, response);
 		}catch (Exception e) {

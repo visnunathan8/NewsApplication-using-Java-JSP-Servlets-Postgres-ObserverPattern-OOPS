@@ -12,7 +12,7 @@ import com.concordia.entity.MultiMedia;
 import com.concordia.entity.Review;
 
 public class ReviewRepository {
-	public static boolean insertToReviewTable(Review reviewData)
+	public static Integer insertToReviewTable(Review reviewData)
 	{
 		
 		ConnectToSql.loadDriver();
@@ -24,10 +24,13 @@ public class ReviewRepository {
 		int multimediaId = MultimediaRepository.insertToMultimediaTable(multimedia);
 		
 		int movieLinkId = MovieLinkRepository.insertToMovieLinkTable(movieLink);
+	
 		boolean status = false;
 		
 		String sql = "Insert into review(display_title, mpaa_rating, critics_pick, byline, headline, summary_short, publication_date, opening_date, date_updated, movielinkId, multimediaId) values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sqlmulti = "Select ReviewId from review WHERE display_title = "+reviewData.getDisplay_title();
 		PreparedStatement ps;
+		Integer number = -1;
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, reviewData.getDisplay_title());
@@ -47,10 +50,17 @@ public class ReviewRepository {
 			}else {
 				status = false;
 			}
+			ResultSet val = ps.executeQuery();
+			if(val.next())
+				number = val.getInt("ReviewId");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
-		return status;
+		return number;
 	}
 	
 	public static ArrayList<Review> selectFromReviewTable()
@@ -82,6 +92,10 @@ public class ReviewRepository {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		return reviewDatas;
 	}
