@@ -66,10 +66,6 @@ public class NotifierRepository {
 		int rowCount = 0;
 		try {
 			PreparedStatement  ps = null;
-			String delSql = "delete from Notifier";
-			ps = con.prepareStatement(delSql);
-			int n = ps.executeUpdate();
-			
 			String sql = "Insert into Notifier(publisherId, subscriberId) values(?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, publisherId);
@@ -83,13 +79,29 @@ public class NotifierRepository {
 				catch (SQLException ignore) {}
 		}
 	}
-	public static void deleteSubscriberData(Integer publisherId, Integer subscriberId) {
+	public static void deleteSubscriberData(Integer publisherId) {
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
 		try {
 			String sql = "delete from Notifier where publisherId ="+publisherId;
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.executeQuery();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
+		}
+	}
+	public static void deletePublisherData(Integer subscriberId) {
+		System.out.println("======="+subscriberId);
+		ConnectToSql.loadDriver();
+		Connection con = ConnectToSql.getConnection();
+		try {
+			String sql = "delete from Notifier where subscriberId ="+subscriberId;
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

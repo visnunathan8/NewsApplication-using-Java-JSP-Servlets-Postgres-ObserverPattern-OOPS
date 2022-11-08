@@ -45,7 +45,7 @@ public class Notifier implements Subject{
 	}
 	
 	@Override
-	public void notifyObservers(Integer publisherId, JSONObject review) {
+	public void notifyObservers(Integer publisherId, Review review) {
 		for (int i = 0; i < subscribers.size(); i++) 
 			observer.update(publisherId, review);
 	}
@@ -58,9 +58,9 @@ public class Notifier implements Subject{
 	}
 
 	@Override
-	public void removeObserver(Integer publisherId, Integer subscriberId) {
+	public void removeObserver(Integer subscriberId) {
 		subscribers.remove(subscriberId);
-		observer.removeSubscriberToPublisher(publisherId, subscriberId);
+		observer.removeSubscriberToPublisher(subscriberId);
 	}
 	
 	

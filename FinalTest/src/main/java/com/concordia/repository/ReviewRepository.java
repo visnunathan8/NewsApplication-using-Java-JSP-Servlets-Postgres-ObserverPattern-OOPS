@@ -28,7 +28,7 @@ public class ReviewRepository {
 		boolean status = false;
 		
 		String sql = "Insert into review(display_title, mpaa_rating, critics_pick, byline, headline, summary_short, publication_date, opening_date, date_updated, movielinkId, multimediaId) values(?,?,?,?,?,?,?,?,?,?,?)";
-		String sqlmulti = "Select ReviewId from review WHERE display_title = "+reviewData.getDisplay_title();
+		String sqlmulti = "Select ReviewId from review WHERE display_title = '"+reviewData.getDisplay_title()+"'";
 		PreparedStatement ps;
 		Integer number = -1;
 		try {
@@ -50,7 +50,10 @@ public class ReviewRepository {
 			}else {
 				status = false;
 			}
-			ResultSet val = ps.executeQuery();
+			 int n = ps.executeUpdate();
+			 System.out.println("===="+sqlmulti);
+			 ps = con.prepareStatement(sqlmulti);
+			 ResultSet val = ps.executeQuery();
 			if(val.next())
 				number = val.getInt("ReviewId");
 		} catch (SQLException e) {
@@ -98,5 +101,38 @@ public class ReviewRepository {
 				catch (SQLException ignore) {}
 		}
 		return reviewDatas;
+	}
+	public static Review selectAReview(Integer reviewId)
+	{
+		
+		ConnectToSql.loadDriver();
+		Connection con = ConnectToSql.getConnection();
+		Review reviewData = new Review();
+				
+		String sql = "select * from review where ReviewId="+reviewId;
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(sql);
+			ResultSet val = ps.executeQuery();
+			while(val.next()) {
+				reviewData.setDisplay_title(val.getString("display_title"));
+				reviewData.setMpaa_rating(val.getString("mpaa_rating"));
+				reviewData.setCritics_pick(val.getInt("critics_pick"));
+				reviewData.setByline(val.getString("byline"));
+				reviewData.setHeadline(val.getString("headline"));
+				reviewData.setSummary_short(val.getString("summary_short"));
+				reviewData.setOpening_date(val.getString("opening_date"));
+				reviewData.setDate_updated(val.getString("date_updated"));
+				reviewData.setMovielink(MovieLinkRepository.selectFromMovieLink(val.getInt("movielinkid")));
+				reviewData.setMultimedia(MultimediaRepository.selectFromMultimedia(val.getInt("MultimediaId")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
+		}
+		return reviewData;
 	}
 }

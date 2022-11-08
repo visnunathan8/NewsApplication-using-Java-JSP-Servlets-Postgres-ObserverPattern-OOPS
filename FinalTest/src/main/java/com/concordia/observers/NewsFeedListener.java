@@ -14,12 +14,12 @@ import com.concordia.repository.SubscriberRepository;
 public class NewsFeedListener implements Observer{
 	
 	@Override
-	public void update(Integer publisherId, JSONObject review) {
+	public void update(Integer publisherId, Review review) {
 		try {
-			Review reviewData = Review.setAllReviewDataObject(review);
-			Integer reviewId = ReviewRepository.insertToReviewTable(reviewData);
-			ArrayList<Integer> subIds = NotifierRepository.getSubscriberIds(publisherId);
-			SubscriberRepository.insertSubscriberData(subIds, reviewId);
+			
+			Integer reviewId = ReviewRepository.insertToReviewTable(review);
+			//ArrayList<Integer> subIds = NotifierRepository.getSubscriberIds(publisherId);
+			SubscriberRepository.insertSubscriberData(publisherId, reviewId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,9 +37,9 @@ public class NewsFeedListener implements Observer{
 	}
 	
 	@Override
-	public void removeSubscriberToPublisher(Integer publisherId, Integer subscriberId) {
+	public void removeSubscriberToPublisher(Integer subscriberId) {
 		try {
-			NotifierRepository.deleteSubscriberData(publisherId, subscriberId);
+			NotifierRepository.deletePublisherData(subscriberId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

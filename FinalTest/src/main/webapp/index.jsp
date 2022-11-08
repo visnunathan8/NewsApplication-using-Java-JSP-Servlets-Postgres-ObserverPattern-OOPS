@@ -1,3 +1,4 @@
+<%@page import="com.concordia.repository.SubscriberRepository"%>
 <%@page import="com.concordia.repository.NotifierRepository"%>
 <%@page import="com.concordia.repository.UserAccountRepository"%>
 <%@page import="com.concordia.repository.ReviewRepository"%>
@@ -243,8 +244,123 @@ tr:nth-child(even) {
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
-			<div style="width:1300px;height:700px;background-color:white">
+			<div style="width:1300px;height:700px;">
+				<%
+				System.out.println("USER :"+request.getAttribute("userid"));
+				if(request.getAttribute("userid") != null) {
+					System.out.println("USER1111 :"+request.getAttribute("userid"));
+				Integer subscriberId = Integer.parseInt((String)request.getAttribute("userid"));
+				ArrayList<Integer> publishersIds = NotifierRepository.getPublisherIds(subscriberId);
+				for(int i=0; i<publishersIds.size(); i++) {
+					
+					Integer reviewId = SubscriberRepository.getReviewId(publishersIds.get(i));
+					if(reviewId != -1) {
+					Review reviewRecord = ReviewRepository.selectAReview(reviewId);
+					System.out.println("HELO"+reviewRecord.getDisplay_title());
+						%>
+						<div class="row justify-content-center">
+							<!-- Portfolio Item 1-->
+							<div class="col-md-6 col-lg-4 mb-5">
+								<div class="portfolio-item mx-auto" data-bs-toggle="modal"
+									data-bs-target="#sub<%=i%>">
+									<div
+										class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+										
+									</div>
+									<div style="padding-top:30px;text-align: center;height:100px;text-align: center;border: 3px solid green;">
+										<%-- <div class="img-fluid" >Review <%=i%>    </div> --%>
+										<div><b><%=reviewRecord.getDisplay_title() %></b></div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
 			
+				
+				<div class="portfolio-modal modal fade" id="sub<%=i%>"
+							tabindex="-1" aria-labelledby="sub" aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header border-0">
+										<button class="btn-close" type="button" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body text-center pb-5">
+										<div class="container">
+											<div class="row justify-content-center">
+												<div class="col-lg-8">
+													<!-- Portfolio Modal - Title-->
+													
+													<h2
+														class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= reviewRecord.getDisplay_title() %></h2>
+													<!-- Icon Divider-->
+													<div class="divider-custom">
+														<div class="divider-custom-line"></div>
+														<div class="divider-custom-icon">
+															<i class="fas fa-star"></i>
+														</div>
+														<div class="divider-custom-line"></div>
+													</div>
+													
+													<div style="height:400px;overflow:auto;">
+																					
+														<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Movie Review Details : </div><br/><br/><br/>
+														<table>
+														<tr>
+															<div>
+																<td> HEADLINE : </td><td> <%= reviewRecord.getHeadline() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>MPAA RATING : </td><td> <%= reviewRecord.getMpaa_rating() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>CRITICS PICK : </td><td> <%= reviewRecord.getCritics_pick() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>DATE UPDATED : </td><td> <%= reviewRecord.getDate_updated() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>BY LINE : </td><td> <%= reviewRecord.getByline() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>OPENING DATE : </td><td> <%= reviewRecord.getOpening_date() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>PUBLICATION DATE : </td><td> <%= reviewRecord.getPublication_date() %> </td>
+															</div>
+														</tr>
+														<tr>
+															<div>
+																<td>SHORT SUMMARY : </td><td> <%= reviewRecord.getSummary_short() %> </td>
+															</div>
+														</tr>
+														
+														</table>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<%		}
+					
+					}
+				}%>
 			</div>
 			
 		</div>
@@ -267,7 +383,7 @@ tr:nth-child(even) {
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
 					
-					<form id="contactForm" method="post" action="subscription">
+					<form class="w3-container w3-card-4" id="contactForm" method="post" action="subscription">
 					<input type=hidden id="publisherid" name="publisherid" value="<%=request.getAttribute("userid")%>"> 
 					<% 
 					ArrayList<UserAccount> publisherIds = UserAccountRepository.getPublishers(); 
@@ -284,7 +400,7 @@ tr:nth-child(even) {
 						}   
 					%>
 						<div style="overflow:auto">
-						  <input style="size:60px;" type="checkbox" id="username" name="username" value="<%=publisherIds.get(i).getUserId()%>" <%=isChecked?"checked":""%> >&nbsp;&nbsp;&nbsp;&nbsp;
+						  <input class="w3-check" style="size:60px;" type="checkbox" id="username" name="username" value="<%=publisherIds.get(i).getUserId()%>" <%=isChecked?"checked":""%> >&nbsp;&nbsp;&nbsp;&nbsp;
 						  <label style="color:darkgreen;font-size:30px;" for="username"><%= publisherIds.get(i).getUsername() %></label><br>
 						 </div>
 					<%} %>
@@ -711,6 +827,7 @@ tr:nth-child(even) {
 	</div>
 	<%}
 	}%>
+	
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
