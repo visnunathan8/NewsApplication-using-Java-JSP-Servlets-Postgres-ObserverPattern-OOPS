@@ -6,7 +6,9 @@ public class ByLine {
 	int bylineId;
 	String original;
 	String organisation;
-
+	
+	Person person;
+	
 	public int getByLineId() {
 		return bylineId;
 	}
@@ -31,7 +33,7 @@ public class ByLine {
 		this.organisation = organisation;
 	}
 
-	Person person;
+	
 
 	public Person getPerson() {
 		return person;
