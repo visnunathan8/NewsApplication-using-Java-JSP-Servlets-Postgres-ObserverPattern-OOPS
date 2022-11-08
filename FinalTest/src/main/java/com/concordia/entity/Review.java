@@ -21,7 +21,6 @@ public class Review {
 	MultiMedia multimedia;
 	
 	
-	
 	public int getMovielinkId() {
 		return movielinkId;
 	}

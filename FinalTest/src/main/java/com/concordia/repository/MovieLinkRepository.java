@@ -64,6 +64,10 @@ public class MovieLinkRepository {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			if (con != null) 
+				try { con.close(); } 
+				catch (SQLException ignore) {}
 		}
 		// TODO Auto-generated method stub
 		return movie;
