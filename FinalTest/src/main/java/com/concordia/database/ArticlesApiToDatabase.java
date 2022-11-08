@@ -8,8 +8,9 @@ import com.concordia.entity.Article;
 import com.concordia.repository.ArticleRepository;
 
 public class ArticlesApiToDatabase {
-	public static void convertAllMovieCriticDataToDatabase() {
-		JSONObject responseData = ConnectToApi.getAllMovieCriticData();
+	
+	public static void convertAllArticleDataToDatabase() {
+		JSONObject responseData = ConnectToApi.getArticleData();
 		Article articleData = new Article();
 		JSONArray results = (JSONArray) responseData.get("docs");
 		for(int i=0; i<results.size(); i++) {

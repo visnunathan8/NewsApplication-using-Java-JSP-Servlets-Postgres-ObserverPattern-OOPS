@@ -16,7 +16,7 @@ public class Article {
 	int bylineId;
 
 	String pub_date;
-	String document_type;	
+	String document_type;
 	String print_page;
 	String print_section;
 	String news_desk;
@@ -31,7 +31,6 @@ public class Article {
 	Keyword keyword;
 	HeadLine headline;
 	ByLine byline;
-	
 
 	// getters and setters for inherited objects
 	public Media getMedia() {
@@ -58,11 +57,11 @@ public class Article {
 		this.headline = headline;
 	}
 
-	public ByLine getByline() {
+	public ByLine getByLine() {
 		return byline;
 	}
 
-	public void setByline(ByLine byline) {
+	public void setByLine(ByLine byline) {
 		this.byline = byline;
 	}
 	// getters & setters
@@ -274,23 +273,23 @@ public class Article {
 			}
 			if (data.get("keyword") != null && !(data.get("keyword").toString().isEmpty())) {
 
-				JSONObject mediaData = (JSONObject) data.get("keyword");
-				Media media = Media.setAllMediaData(mediaData);
-				articleData.setMedia(media);
+				JSONObject keywordData = (JSONObject) data.get("keyword");
+				Keyword keyword = Keyword.setAllKeywordData(keywordData);
+				articleData.setKeyword(keyword);
 
 			}
 			if (data.get("headLine") != null && !(data.get("headLine").toString().isEmpty())) {
 
-				JSONObject mediaData = (JSONObject) data.get("headLine");
-				Media media = Media.setAllMediaData(mediaData);
-				articleData.setMedia(media);
+				JSONObject headLineData = (JSONObject) data.get("headLine");
+				HeadLine headLine = HeadLine.setAllHeadLineData(headLineData);
+				articleData.setHeadLine(headLine);
 
 			}
-			if (data.get("byLine") != null && !(data.get("byLine").toString().isEmpty())) {
+			if (data.get("byline") != null && !(data.get("byline").toString().isEmpty())) {
 
-				JSONObject mediaData = (JSONObject) data.get("byLine");
-				Media media = Media.setAllMediaData(mediaData);
-				articleData.setMedia(media);
+				JSONObject byLineData = (JSONObject) data.get("byline");
+				ByLine byline = ByLine.setAllByLineData(byLineData);
+				articleData.setByLine(byline);
 
 			}
 
