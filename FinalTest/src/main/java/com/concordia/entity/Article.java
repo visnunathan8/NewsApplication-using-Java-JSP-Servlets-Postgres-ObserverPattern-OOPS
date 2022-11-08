@@ -8,7 +8,7 @@ public class Article {
 	String abstracts;
 	String web_url;
 	String snippet;
-
+	//String lead_paragraph;
 	String source;
 	int mediaId;
 	int headlineId;
@@ -21,6 +21,7 @@ public class Article {
 	String print_section;
 	String news_desk;
 	String section_name;
+	//String subsection_name;
 	String type_of_material;
 	String _id;
 	String word_count;
@@ -278,11 +279,11 @@ public class Article {
 				articleData.setKeyword(keyword);
 
 			}
-			if (data.get("headLine") != null && !(data.get("headLine").toString().isEmpty())) {
+			if (data.get("headline") != null && !(data.get("headline").toString().isEmpty())) {
 
-				JSONObject headLineData = (JSONObject) data.get("headLine");
-				HeadLine headLine = HeadLine.setAllHeadLineData(headLineData);
-				articleData.setHeadLine(headLine);
+				JSONObject headLineData = (JSONObject) data.get("headline");
+				HeadLine headline = HeadLine.setAllHeadLineData(headLineData);
+				articleData.setHeadLine(headline);
 
 			}
 			if (data.get("byline") != null && !(data.get("byline").toString().isEmpty())) {
