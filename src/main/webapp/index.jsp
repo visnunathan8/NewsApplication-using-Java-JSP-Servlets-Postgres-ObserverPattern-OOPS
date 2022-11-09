@@ -12,6 +12,9 @@
 	}
 %>
 <style>
+#boxx:hover {
+  background-color: yellow;
+}
 .button {
   display: inline-block;
   border-radius: 4px;
@@ -113,7 +116,7 @@ tr:nth-child(even) {
 						class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Subscribed Content </a></li>
 					<li class="nav-item mx-0 mx-lg-1"><a
 						class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Subscriber list</a></li>
-					<li class="nav-item mx-0 mx-lg-1"><a id="logout"
+					<li class="nav-item mx-0 mx-lg-1"><a
 						class="nav-link py-3 px-0 px-lg-3 rounded" href="logout">Logout</a></li>
 					<li class="nav-item mx-0 mx-lg-1 bg-danger"><a
 						class="nav-link py-3 px-0 px-lg-3 rounded" href="logout"><%= session.getAttribute("name")%></a></li>
@@ -244,121 +247,117 @@ tr:nth-child(even) {
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
-			<div style="width:1300px;height:700px;">
+			<div style="overflow:auto;width:1300px;height:700px;">
 				<%
 				System.out.println("USER :"+request.getAttribute("userid"));
 				if(request.getAttribute("userid") != null) {
-					System.out.println("USER1111 :"+request.getAttribute("userid"));
 				Integer subscriberId = Integer.parseInt((String)request.getAttribute("userid"));
 				ArrayList<Integer> publishersIds = NotifierRepository.getPublisherIds(subscriberId);
 				for(int i=0; i<publishersIds.size(); i++) {
 					
-					Integer reviewId = SubscriberRepository.getReviewId(publishersIds.get(i));
-					if(reviewId != -1) {
-					Review reviewRecord = ReviewRepository.selectAReview(reviewId);
-					System.out.println("HELO"+reviewRecord.getDisplay_title());
-						%>
-						<div class="row justify-content-center">
-							<!-- Portfolio Item 1-->
-							<div class="col-md-6 col-lg-4 mb-5">
-								<div class="portfolio-item mx-auto" data-bs-toggle="modal"
-									data-bs-target="#sub<%=i%>">
-									<div 
-										class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-										
+					ArrayList<Integer> reviewIds = SubscriberRepository.getReviewId(publishersIds.get(i));
+					if(reviewIds.size() > 0) {
+							for(int l=0; l<reviewIds.size(); l++) {
+							Review reviewRecord = ReviewRepository.selectAReview(reviewIds.get(l));
+								%>
+								<div class="row justify-content-center">
+									<!-- Portfolio Item 1-->
+									<div class="col-md-6 col-lg-4 mb-5">
+										<div class="portfolio-item mx-auto" data-bs-toggle="modal"
+											data-bs-target="#sub<%=i%>">
+											
+											<div id="boxx" style="padding-top:30px;text-align: center;height:100px;text-align: center;border: 3px solid green;">
+												<%-- <div class="img-fluid" >Review <%=i%>    </div> --%>
+												<div style="color: black;"><b ><%=reviewRecord.getDisplay_title() %></b></div>
+											</div>
+										</div>
 									</div>
-									<div style="padding-top:30px;text-align: center;height:100px;text-align: center;border: 3px solid green;">
-										<%-- <div class="img-fluid" >Review <%=i%>    </div> --%>
-										<div><b id="subContent"><%=reviewRecord.getDisplay_title() %></b></div>
-									</div>
+									
 								</div>
-							</div>
-							
-						</div>
-			
-				
-				<div class="portfolio-modal modal fade" id="sub<%=i%>"
-							tabindex="-1" aria-labelledby="sub" aria-hidden="true">
-							<div class="modal-dialog modal-xl">
-								<div class="modal-content">
-									<div class="modal-header border-0">
-										<button class="btn-close" type="button" data-bs-dismiss="modal"
-											aria-label="Close"></button>
-									</div>
-									<div class="modal-body text-center pb-5">
-										<div class="container">
-											<div class="row justify-content-center">
-												<div class="col-lg-8">
-													<!-- Portfolio Modal - Title-->
-													
-													<h2
-														class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= reviewRecord.getDisplay_title() %></h2>
-													<!-- Icon Divider-->
-													<div class="divider-custom">
-														<div class="divider-custom-line"></div>
-														<div class="divider-custom-icon">
-															<i class="fas fa-star"></i>
+					
+						
+						<div class="portfolio-modal modal fade" id="sub<%=i%>"
+									tabindex="-1" aria-labelledby="sub" aria-hidden="true">
+									<div class="modal-dialog modal-xl">
+										<div class="modal-content">
+											<div class="modal-header border-0">
+												<button class="btn-close" type="button" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body text-center pb-5">
+												<div class="container">
+													<div class="row justify-content-center">
+														<div class="col-lg-8">
+															<!-- Portfolio Modal - Title-->
+															
+															<h2
+																class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= reviewRecord.getDisplay_title() %></h2>
+															<!-- Icon Divider-->
+															<div class="divider-custom">
+																<div class="divider-custom-line"></div>
+																<div class="divider-custom-icon">
+																	<i class="fas fa-star"></i>
+																</div>
+																<div class="divider-custom-line"></div>
+															</div>
+															
+															<div style="height:400px;overflow:auto;">
+																							
+																<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Movie Review Details : </div><br/><br/><br/>
+																<table>
+																<tr>
+																	<div>
+																		<td> HEADLINE : </td><td> <%= reviewRecord.getHeadline() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>MPAA RATING : </td><td> <%= reviewRecord.getMpaa_rating() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>CRITICS PICK : </td><td> <%= reviewRecord.getCritics_pick() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>DATE UPDATED : </td><td> <%= reviewRecord.getDate_updated() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>BY LINE : </td><td> <%= reviewRecord.getByline() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>OPENING DATE : </td><td> <%= reviewRecord.getOpening_date() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>PUBLICATION DATE : </td><td> <%= reviewRecord.getPublication_date() %> </td>
+																	</div>
+																</tr>
+																<tr>
+																	<div>
+																		<td>SHORT SUMMARY : </td><td> <%= reviewRecord.getSummary_short() %> </td>
+																	</div>
+																</tr>
+																
+																</table>
+															</div>
+															
 														</div>
-														<div class="divider-custom-line"></div>
 													</div>
-													
-													<div style="height:400px;overflow:auto;">
-																					
-														<div style="float:left; font-size: 200%; /* 36px */color: Crimson;"> Movie Review Details : </div><br/><br/><br/>
-														<table>
-														<tr>
-															<div>
-																<td> HEADLINE : </td><td> <%= reviewRecord.getHeadline() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>MPAA RATING : </td><td> <%= reviewRecord.getMpaa_rating() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>CRITICS PICK : </td><td> <%= reviewRecord.getCritics_pick() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>DATE UPDATED : </td><td> <%= reviewRecord.getDate_updated() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>BY LINE : </td><td> <%= reviewRecord.getByline() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>OPENING DATE : </td><td> <%= reviewRecord.getOpening_date() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>PUBLICATION DATE : </td><td> <%= reviewRecord.getPublication_date() %> </td>
-															</div>
-														</tr>
-														<tr>
-															<div>
-																<td>SHORT SUMMARY : </td><td> <%= reviewRecord.getSummary_short() %> </td>
-															</div>
-														</tr>
-														
-														</table>
-													</div>
-													
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					<%		}
-					
+							<%		}
+							}
 					}
 				}%>
 			</div>
@@ -391,9 +390,10 @@ tr:nth-child(even) {
 					if(request.getAttribute("userid") != null) {
 						checkedPublisherIds = NotifierRepository.getPublisherIds(Integer.parseInt((String)request.getAttribute("userid")));
 					}
+					System.out.println("@@@@@@@@@@@@@@@@====++++++++++++++");
 					for(int i=0; i<publisherIds.size(); i++) {
 						boolean isChecked = false;
-					    System.out.println("===="+publisherIds.get(i).getUserId());
+					    System.out.println("====++++++++++++++"+publisherIds.get(i).getUserId());
 						Integer pubId = publisherIds.get(i).getUserId();
 						if(checkedPublisherIds != null && checkedPublisherIds.contains(pubId)) {
 							isChecked = true;
@@ -408,7 +408,7 @@ tr:nth-child(even) {
 					
 						<!-- Submit Button-->
 						<button class="btn btn-primary btn-xl" id="submitButton"
-							type="submit">Subscribe</button>
+							type="submit">Subscribe<%=publisherIds.size()%></button>
 					</form>
 				</div>
 			</div>

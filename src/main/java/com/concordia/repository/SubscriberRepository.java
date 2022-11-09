@@ -32,17 +32,20 @@ public class SubscriberRepository {
 		}
 		return rowCount;
 	}
-	public static Integer getReviewId(Integer subscriberId) {
+	public static ArrayList<Integer> getReviewId(Integer subscriberId) {
 		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
+		ArrayList<Integer> reviewIds = new ArrayList<>();
 		int reviewId = -1;
 		try {
 			String sql = "select ReviewId from subscribedData where subscriberId="+subscriberId;
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
+			while(rs.next()) {
 				reviewId = rs.getInt("ReviewId");
+				reviewIds.add(reviewId);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -50,6 +53,6 @@ public class SubscriberRepository {
 				try { con.close(); } 
 				catch (SQLException ignore) {}
 		}
-		return reviewId;
+		return reviewIds;
 	}
 }
