@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-11-09T13:26:14 GMT-05:00" name="Default suite" finished-at="2022-11-09T13:26:28 GMT-05:00" duration-ms="13846">
+    <groups>
+    </groups>
+    <test started-at="2022-11-09T13:26:14 GMT-05:00" name="Default test" finished-at="2022-11-09T13:26:28 GMT-05:00" duration-ms="13846">
+      <class name="com.concorida.testing.NewTest">
+        <test-method signature="f()[pri:0, instance:com.concorida.testing.NewTest@5136d012]" started-at="2022-11-09T13:26:14 GMT-05:00" name="f" finished-at="2022-11-09T13:26:28 GMT-05:00" duration-ms="13813" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+      </class> <!-- com.concorida.testing.NewTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
