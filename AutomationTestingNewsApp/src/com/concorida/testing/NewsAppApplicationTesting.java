@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NewTest {
+public class NewsAppApplicationTesting {
   @Test
   public void f() throws InterruptedException {
 	  System.setProperty("webdriver.chrome.driver", "/Users/macbook/Downloads/4.21 Eclipse/project/Jars/chromedriver");
@@ -15,10 +15,10 @@ public class NewTest {
 		driver.get("http://localhost:8080/FinalTest/login.jsp");
 		Thread.sleep(500);
 		WebElement usernameDriver = driver.findElement(By.id("username"));
-		usernameDriver.sendKeys("admin");
+		usernameDriver.sendKeys("reviewer1");
 		Thread.sleep(500);
 		WebElement passwordDriver = driver.findElement(By.id("password"));
-		passwordDriver.sendKeys("admin");
+		passwordDriver.sendKeys("reviewer1");
 		Thread.sleep(500);
 		WebElement signin = driver.findElement(By.id("signin"));
 		signin.click();
@@ -61,10 +61,10 @@ public class NewTest {
 		
 	
 		usernameDriver = driver.findElement(By.id("username"));
-		usernameDriver.sendKeys("test");
+		usernameDriver.sendKeys("user1");
 		Thread.sleep(500);
 		passwordDriver = driver.findElement(By.id("password"));
-		passwordDriver.sendKeys("test");
+		passwordDriver.sendKeys("user1");
 		Thread.sleep(500);
 		signin = driver.findElement(By.id("signin"));
 		signin.click();
