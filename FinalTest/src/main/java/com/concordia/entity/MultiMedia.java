@@ -10,7 +10,16 @@ public class MultiMedia {
 	int height;
 	String credit;
 	
-	
+	public MultiMedia() {
+		
+	}
+	public MultiMedia(String type, String src, int width, int height, String credit) {
+		this.type = type;
+		this.src = src;
+		this.width = width;
+		this.height = height;
+		this.credit = credit;
+	}
 	public int getMultimediaId() {
 		return MultimediaId;
 	}
