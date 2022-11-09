@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width:100%;height:100%;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,13 @@
 <!-- Main css -->
 <link rel="stylesheet" href="css/style.css"> 
 </head>
-<body>
+<body style="width:100%;height:100%;">
 	<input type= "hidden" id="status" value="<%=request.getAttribute("status")%>">
-	<div class="main">
+	<div class="main" style="height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;background-image:url(images/back.jpg);">
+
 
 		<!-- Sign up form -->
-		<section class="signup">
+		<section class="signup" style="padding-top:100px;">
 			<div class="container">
 				<div class="signup-content">
 					<div class="signup-form">
@@ -64,7 +65,7 @@
 					</div>
 					<div class="signup-image">
 						<figure>
-							<img src="images/signup-image.jpg" alt="sing up image">
+							<img src="images/signin-image.jpg" alt="sing up image">
 						</figure>
 						<a href="login.jsp" class="signup-image-link">I am already
 							member</a>
@@ -87,6 +88,7 @@
       if(status == "success"){
       	swal( "Congrats ", "Account Created Successfully", "success") ;
       }
+
 	</script>
 
 

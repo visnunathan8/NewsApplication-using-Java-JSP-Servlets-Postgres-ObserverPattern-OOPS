@@ -23,7 +23,7 @@
 				<div  class="signin-content">
 					<div class="signin-image">
 						<figure>
-							<img src="images/signin-image.jpg" style="height:350px;width:500px" alt="sing up image">
+							<img src="images/signin-image.jpg" alt="sing up image">
 						</figure>
 						<a href="registration.jsp" class="signup-image-link">Create an
 							account</a>

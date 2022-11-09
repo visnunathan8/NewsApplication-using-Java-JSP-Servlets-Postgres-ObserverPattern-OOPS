@@ -83,7 +83,7 @@ public class UserAccountRepository {
 			ps.setString(2, useraccount.getPassword());
 			ps.setString(3, useraccount.getUserEmail());
 			ps.setString(4, useraccount.getUserMobile());
-			if(useraccount.getUsername().startsWith("admin")) {
+			if(useraccount.getUsername().startsWith("reviewer")) {
 				ps.setString(5, "A");
 			}else { 
 				ps.setString(5, "U");

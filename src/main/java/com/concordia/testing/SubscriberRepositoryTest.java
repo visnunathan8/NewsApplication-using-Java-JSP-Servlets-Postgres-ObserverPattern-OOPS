@@ -2,6 +2,8 @@ package com.concordia.testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +20,8 @@ class SubscriberRepositoryTest {
 	@Test
 	void testGetReviewId() {
 		Integer expected = Integer.valueOf("1746");
-		Integer actual = SubscriberRepository.getReviewId(1);
-		assertEquals(expected, actual);
+		ArrayList<Integer> actual = SubscriberRepository.getReviewId(1);
+		assertEquals(expected, actual.get(0));
 	}
 
 }

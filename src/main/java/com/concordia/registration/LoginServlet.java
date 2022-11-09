@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 			if (useraccountrep.validate(useraccount)) {
 				session.setAttribute("name", username);
 				request.setAttribute("userid", useraccountrep.getUserId(useraccount));
-				if(username.startsWith("admin")) {
+				if(username.startsWith("reviewer")) {
 					dispatcher = request.getRequestDispatcher("admin.jsp");
 				}else {
 					dispatcher = request.getRequestDispatcher("index.jsp");
