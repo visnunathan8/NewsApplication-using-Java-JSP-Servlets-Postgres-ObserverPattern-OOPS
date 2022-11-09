@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width:100%;height:100%;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,15 +13,14 @@
 <!-- Main css -->
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body style="width:100%;height:100%;" >
 	<input type= "hidden" id="status" value="<%=request.getAttribute("status")%>">
 	<div class="main" style="height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;background-image:url(images/back.jpg);">
 
-
 		<!-- Sing in  Form -->
-		<section class="sign-in">
+		<section class="sign-in" style="padding-top:150px;">
 			<div class="container">
-				<div class="signin-content">
+				<div  class="signin-content">
 					<div class="signin-image">
 						<figure>
 							<img src="images/signin-image.jpg" style="height:350px;width:500px" alt="sing up image">
