@@ -19,11 +19,15 @@ public class ReviewRepository {
 		MultiMedia multimedia = reviewData.getMultimedia();
 		MovieLink movieLink = reviewData.getMovielink();
 		
+		int multimediaId = -1;
+		if(multimedia != null) {
+			multimediaId = MultimediaRepository.insertToMultimediaTable(multimedia);
+		}
+		int movieLinkId = -1;
+		if(movieLink != null) {
+			movieLinkId = MovieLinkRepository.insertToMovieLinkTable(movieLink);
+		}
 		
-		int multimediaId = MultimediaRepository.insertToMultimediaTable(multimedia);
-		
-		int movieLinkId = MovieLinkRepository.insertToMovieLinkTable(movieLink);
-			
 		String sql = "Insert into review(display_title, mpaa_rating, critics_pick, byline, headline, summary_short, publication_date, opening_date, date_updated, movielinkId, multimediaId) values(?,?,?,?,?,?,?,?,?,?,?)";
 		String sqlmulti = "Select ReviewId from review WHERE display_title = '"+reviewData.getDisplay_title().replaceAll("'", "")+"'";
 		PreparedStatement ps;
@@ -115,6 +119,7 @@ public class ReviewRepository {
 				reviewData.setSummary_short(val.getString("summary_short"));
 				reviewData.setOpening_date(val.getString("opening_date"));
 				reviewData.setDate_updated(val.getString("date_updated"));
+				reviewData.setPublication_date(val.getString("publication_date"));
 				reviewData.setMovielink(MovieLinkRepository.selectFromMovieLink(val.getInt("movielinkid")));
 				reviewData.setMultimedia(MultimediaRepository.selectFromMultimedia(val.getInt("MultimediaId")));
 			}
