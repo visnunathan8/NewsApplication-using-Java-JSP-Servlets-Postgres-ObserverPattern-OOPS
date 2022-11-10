@@ -14,7 +14,6 @@ public class ConnectToApi {
 	public static JSONObject getData(String url) {
 		JSONObject myResponse = new JSONObject();
 		try {
-			
 		    URL obj = new URL(url);
 		    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		    con.setRequestMethod("GET");

@@ -168,7 +168,6 @@ tr:nth-child(even) {
 			<%
 			ArrayList<Review> review = ReviewRepository.selectFromReviewTable();
 			for(int i=0; i<review.size(); i+=3) {
-			System.out.println(i);
 			%>
 			
 			<!-- Portfolio Grid Items-->
@@ -249,7 +248,6 @@ tr:nth-child(even) {
 			</div>
 			<div style="overflow:auto;width:1300px;height:700px;">
 				<%
-				System.out.println("USER :"+request.getAttribute("userid"));
 				if(request.getAttribute("userid") != null) {
 				Integer subscriberId = Integer.parseInt((String)request.getAttribute("userid"));
 				ArrayList<Integer> publishersIds = NotifierRepository.getPublisherIds(subscriberId);
@@ -390,10 +388,8 @@ tr:nth-child(even) {
 					if(request.getAttribute("userid") != null) {
 						checkedPublisherIds = NotifierRepository.getPublisherIds(Integer.parseInt((String)request.getAttribute("userid")));
 					}
-					System.out.println("@@@@@@@@@@@@@@@@====++++++++++++++");
 					for(int i=0; i<publisherIds.size(); i++) {
 						boolean isChecked = false;
-					    System.out.println("====++++++++++++++"+publisherIds.get(i).getUserId());
 						Integer pubId = publisherIds.get(i).getUserId();
 						if(checkedPublisherIds != null && checkedPublisherIds.contains(pubId)) {
 							isChecked = true;
@@ -408,7 +404,7 @@ tr:nth-child(even) {
 					
 						<!-- Submit Button-->
 						<button class="btn btn-primary btn-xl" id="submitButton"
-							type="submit">Subscribe<%=publisherIds.size()%></button>
+							type="submit">Subscribe</button>
 					</form>
 				</div>
 			</div>

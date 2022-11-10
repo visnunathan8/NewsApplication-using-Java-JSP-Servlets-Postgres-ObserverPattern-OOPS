@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = null;
-		//PrintWriter prt = response.getWriter();
 		UserAccount useraccount = new UserAccount();
 		useraccount.setUsername(username);
 		useraccount.setPassword(password);
@@ -52,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			dispatcher.forward(request, response);
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
