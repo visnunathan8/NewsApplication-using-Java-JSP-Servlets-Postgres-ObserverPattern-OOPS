@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.concordia.entity.Notifier;
 import com.concordia.entity.Review;
-import com.concordia.repository.ReviewRepository;
 
 /**
  * Servlet implementation class ReviewServlet

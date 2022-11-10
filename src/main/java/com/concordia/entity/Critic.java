@@ -61,6 +61,7 @@ public class Critic {
 	public void setMultimedia(MultiMedia multimedia) {
 		this.multimedia = multimedia;
 	}
+	
 	public static Critic setAllCriticDataObject(JSONObject data) {
 		Critic criticData = new Critic();
 		if(data != null) {

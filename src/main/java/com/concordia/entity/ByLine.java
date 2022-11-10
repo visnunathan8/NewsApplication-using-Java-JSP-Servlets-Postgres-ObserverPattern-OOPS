@@ -3,17 +3,18 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class ByLine {
+	
 	int bylineId;
 	String original;
 	String organisation;
-	
+	Person person;
+
 	public int getByLineId() {
 		return bylineId;
 	}
 	public void setByLineId(int bylineId) {
-		bylineId = bylineId;
+		this.bylineId = bylineId;
 	}
-	
 	public String getOriginal() {
 		return original;
 	}
@@ -26,12 +27,9 @@ public class ByLine {
 	public void setOrganisation(String organisation) {
 		this.organisation = organisation;
 	}
-	
-	Person person;
 	public Person getPerson() {
 		return person;
 	}
-
 	public void setPerson(Person person) {
 		this.person = person;
 	}
@@ -43,9 +41,7 @@ public class ByLine {
 				byLine.setOriginal( ( byLineData.get("original")).toString());
 			if(byLineData.get("organisation")!=null && !(byLineData.get("organisation").toString().isEmpty()))
 				byLine.setOrganisation( ( byLineData.get("organisation")).toString());
-			
 			}
-	
 		return byLine;
 	}
 

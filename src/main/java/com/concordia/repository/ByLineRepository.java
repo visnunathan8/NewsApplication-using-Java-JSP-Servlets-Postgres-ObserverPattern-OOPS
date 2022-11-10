@@ -1,19 +1,15 @@
--package com.concordia.repository;
+package com.concordia.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.ByLine;
-import com.concordia.entity.Person;
 
 public class ByLineRepository {
 	public static int insertToByLineTable(ByLine byLine) {
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
-		
-		Person person = byLine.getPerson();
-		int personId = PersonRepository.insertToPersonTable(person);
 		
 		int number = -1;
 		String sql = "Insert into byline(original,organisation) values(?,?)";

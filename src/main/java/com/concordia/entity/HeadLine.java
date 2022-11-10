@@ -3,6 +3,7 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class HeadLine {
+	
 	int headLineId;
 	String main;
 	String kicker;
@@ -16,7 +17,7 @@ public class HeadLine {
 		return headLineId;
 	}
 	public void setLinkid(int linkid) {
-		headLineId = headLineId;
+		this.headLineId = headLineId;
 	}
 	
 	public String getMain() {

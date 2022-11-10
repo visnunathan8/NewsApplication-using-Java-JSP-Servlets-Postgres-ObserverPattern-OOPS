@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import com.concordia.connection.ConnectToSql;
 
 public class NotifierRepository {
@@ -63,14 +62,13 @@ public class NotifierRepository {
 	public static void insertSubscriberData(Integer subscriberId, Integer publisherId) {
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
-		int rowCount = 0;
 		try {
 			PreparedStatement  ps = null;
 			String sql = "Insert into Notifier(publisherId, subscriberId) values(?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, publisherId);
 			ps.setInt(2, subscriberId);
-			rowCount = ps.executeUpdate();	
+			ps.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -95,7 +93,6 @@ public class NotifierRepository {
 		}
 	}
 	public static void deletePublisherData(Integer subscriberId) {
-		System.out.println("======="+subscriberId);
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
 		try {

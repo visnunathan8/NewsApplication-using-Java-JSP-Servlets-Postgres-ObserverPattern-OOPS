@@ -1,10 +1,5 @@
 package com.concordia.observers;
 
-import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
-
-import com.concordia.entity.Notifier;
 import com.concordia.entity.Review;
 import com.concordia.interfaces.Observer;
 import com.concordia.repository.NotifierRepository;

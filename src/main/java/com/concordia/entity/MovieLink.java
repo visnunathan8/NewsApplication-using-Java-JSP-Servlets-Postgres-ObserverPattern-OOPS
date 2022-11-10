@@ -3,15 +3,15 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class MovieLink {
+
 	int Linkid;
 	String Type;
 	String URL;
 	String suggested_link_text;
 	
 	public MovieLink() {
-		
 	}
-	
+
 	public MovieLink(String type, String uRL, String suggested_link_text) {
 		Type = type;
 		URL = uRL;
@@ -42,6 +42,7 @@ public class MovieLink {
 	public void setSuggested_link_text(String suggested_link_text) {
 		this.suggested_link_text = suggested_link_text;
 	}
+
 	public static MovieLink setAllMovieLinkData(JSONObject linkData) {
 		MovieLink movielink = new MovieLink();
 		if(linkData != null) {
@@ -54,4 +55,5 @@ public class MovieLink {
 		}
 		return movielink;
 	}
+	
 }

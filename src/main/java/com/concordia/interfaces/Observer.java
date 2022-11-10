@@ -1,7 +1,5 @@
 package com.concordia.interfaces;
 
-import org.json.simple.JSONObject;
-
 import com.concordia.entity.Review;
 
 public interface Observer {

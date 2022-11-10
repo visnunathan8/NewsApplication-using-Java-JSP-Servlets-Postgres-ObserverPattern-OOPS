@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.Keyword;
 
@@ -42,8 +41,6 @@ public class KeywordRepository {
 				ps.setInt(4, -1);
 			}
 			ps.executeUpdate();
-			
-			
 			ps = con.prepareStatement(sqlmulti);
 			if(keyword!=null)
 				ps.setInt(1, keyword.getRank());

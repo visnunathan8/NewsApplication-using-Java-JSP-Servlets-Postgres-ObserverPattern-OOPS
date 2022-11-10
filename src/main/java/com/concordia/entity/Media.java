@@ -3,6 +3,7 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class Media {
+
 	int mediaId;
 	int rank;
 	int width;
@@ -13,12 +14,11 @@ public class Media {
 	String url;
 	String crop_name;;
 	
-	
 	public int getMediaId() {
 		return mediaId;
 	}
 	public void setMediaId(int mediaId) {
-		mediaId = mediaId;
+		this.mediaId = mediaId;
 	}
 	public int getRank() {
 		return rank;
@@ -68,6 +68,7 @@ public class Media {
 	public void setCrop_name(String crop_name) {
 		this.crop_name = crop_name;
 	}
+	
 	public static Media setAllMediaData(JSONObject MediaData) {
 		Media media = new Media();
 		if(MediaData != null) {

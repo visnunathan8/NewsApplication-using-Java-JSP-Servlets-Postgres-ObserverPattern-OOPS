@@ -3,6 +3,7 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class Keyword {
+
 	int keywordId;
 	String name;
 	String  value;
@@ -13,13 +14,13 @@ public class Keyword {
 		return keywordId;
 	}
 	public void setKeywordId(int keywordId) {
-		keywordId = keywordId;
+		this.keywordId = keywordId;
 	}
 	public int getRank() {
 		return rank;
 	}
 	public void setRank(int rank) {
-		rank = rank;
+		this.rank = rank;
 	}
 	public String getName() {
 		return name;
@@ -39,6 +40,7 @@ public class Keyword {
 	public void setMajor(String major) {
 		this.major = major;
 	}
+
 	public static Keyword setKeywordData(JSONObject keywordData) {
 		Keyword keyword = new Keyword();
 		if(keywordData != null) {
@@ -50,9 +52,7 @@ public class Keyword {
 				keyword.setValue( ( keywordData.get("value")).toString());
 			if(keywordData.get("major")!=null && !(keywordData.get("major").toString().isEmpty()))
 				keyword.setMajor( ( keywordData.get("major")).toString());
-			
 		}
-	
 		return keyword;
 	}
 	

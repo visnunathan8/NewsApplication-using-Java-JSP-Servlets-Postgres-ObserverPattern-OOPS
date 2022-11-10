@@ -3,15 +3,18 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class MultiMedia {
+
 	int MultimediaId;
 	String type;
 	String src;
 	int width;
 	int height;
 	String credit;
+
 	public MultiMedia() {
 		
 	}
+
 	public MultiMedia(String type, String src, int width, int height, String credit) {
 		this.type = type;
 		this.src = src;
@@ -19,6 +22,7 @@ public class MultiMedia {
 		this.height = height;
 		this.credit = credit;
 	}
+
 	public int getMultimediaId() {
 		return MultimediaId;
 	}
@@ -55,6 +59,7 @@ public class MultiMedia {
 	public void setCredit(String credit) {
 		this.credit = credit;
 	}
+	
 	public static MultiMedia setAllMultimediaData(JSONObject multimediaData) {
 		MultiMedia multimedia = new MultiMedia();
 		if(multimediaData != null) {

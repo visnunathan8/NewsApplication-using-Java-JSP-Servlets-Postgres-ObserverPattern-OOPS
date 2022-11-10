@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.MovieLink;
 
@@ -14,7 +13,6 @@ public class MovieLinkRepository {
 		if(movielink == null) return -1;
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
-		boolean status = false;
 		int number = -1;
 		String sql = "Insert into movielink(type, url, suggested_link_text) values(?,?,?)";
 		String sqlmulti = "Select Linkid from movielink WHERE type=? AND url=?";
@@ -69,7 +67,6 @@ public class MovieLinkRepository {
 				try { con.close(); } 
 				catch (SQLException ignore) {}
 		}
-		// TODO Auto-generated method stub
 		return movie;
 	}
 

@@ -8,6 +8,9 @@ import com.concordia.entity.Article;
 import com.concordia.repository.ArticleRepository;
 
 public class ArticlesApiToDatabase {
+	/**
+	 * To update the Article critic data from API to corresponding Review Database
+	 */
 	public static void convertAllMovieCriticDataToDatabase() {
 		JSONObject responseData = ConnectToApi.getAllMovieCriticData();
 		Article articleData = new Article();
@@ -15,7 +18,7 @@ public class ArticlesApiToDatabase {
 		for(int i=0; i<results.size(); i++) {
 			JSONObject data = (JSONObject) results.get(i);
 			articleData = Article.setAllArticleDataObject(data);
-			//ArticleRepository.insertToArticleTable(articleData);
+			ArticleRepository.insertToArticleTable(articleData);
 		}
 	}
 }

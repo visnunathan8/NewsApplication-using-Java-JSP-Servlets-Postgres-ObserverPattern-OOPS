@@ -3,7 +3,6 @@ package com.concordia.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.Article;
 import com.concordia.entity.Media;
@@ -13,7 +12,6 @@ import com.concordia.entity.ByLine;
 public class ArticleRepository {
 	public static boolean insertToArticleTable(Article articleData)
 	{
-		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
 		
@@ -43,7 +41,6 @@ public class ArticleRepository {
 			ps.setString(8, articleData.getDocument_type());
 			ps.setString(9, articleData.getNews_desk());
 			ps.setString(10, articleData.getSection_name());
-			//ps.setString(11, articleData.getSubsection_name());
 			ps.setString(11, articleData.getType_of_material());
 			ps.setString(12, articleData.get_id());
 			ps.setString(13, articleData.getWord_count());

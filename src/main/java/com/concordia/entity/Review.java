@@ -20,7 +20,6 @@ public class Review {
 	MultiMedia multimedia;
 	
 	public Review() {
-		
 	}
 	public Review(int reviewId, String display_title, String mpaa_rating, int critics_pick, String byline,
 			String headline, String summary_short, String publication_date, String opening_date, String date_updated) {
@@ -120,7 +119,6 @@ public class Review {
 	public void setMultimedia(MultiMedia multimedia) {
 		this.multimedia = multimedia;
 	}
-	
 	
 	public static Review setAllReviewDataObject(JSONObject data) {
 		Review ReviewData = new Review();

@@ -5,11 +5,13 @@ import org.json.simple.JSONObject;
 
 import com.concordia.connection.ConnectToApi;
 import com.concordia.entity.Critic;
-import com.concordia.entity.MultiMedia;
 import com.concordia.repository.CriticRepository;
 
 public class CriticsApiToDatabase {
-	
+
+	/**
+	 * To update all the Movie critics data from API to corresponding Review Database
+	 */
 	public static void convertAllMovieCriticDataToDatabase() {
 		JSONObject responseData = ConnectToApi.getAllMovieCriticData();
 		Critic criticData = new Critic();
@@ -21,6 +23,9 @@ public class CriticsApiToDatabase {
 		}
 	}
 	
+	/**
+	 * To update full-time Movie review data from API to corresponding Review Database
+	 */
 	public static void convertFullTimeMovieCriticDataToDatabase() {
 		JSONObject responseData = ConnectToApi.getFullTimeMovieCriticData();
 		Critic criticData = new Critic();
@@ -32,6 +37,9 @@ public class CriticsApiToDatabase {
 		}
 	}
 	
+	/**
+	 * To update part-time Movie review data from API to corresponding Review Database
+	 */
 	public static void convertPartTimeMovieCriticDataToDatabase() {
 		JSONObject responseData = ConnectToApi.getPartTimeMovieCriticData();
 		Critic criticData = new Critic();

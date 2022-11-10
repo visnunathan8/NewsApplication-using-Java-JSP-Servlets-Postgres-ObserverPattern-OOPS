@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.MovieLink;
 import com.concordia.entity.MultiMedia;
@@ -24,16 +23,14 @@ public class ReviewRepository {
 		int multimediaId = MultimediaRepository.insertToMultimediaTable(multimedia);
 		
 		int movieLinkId = MovieLinkRepository.insertToMovieLinkTable(movieLink);
-	
-		boolean status = false;
-		
+			
 		String sql = "Insert into review(display_title, mpaa_rating, critics_pick, byline, headline, summary_short, publication_date, opening_date, date_updated, movielinkId, multimediaId) values(?,?,?,?,?,?,?,?,?,?,?)";
-		String sqlmulti = "Select ReviewId from review WHERE display_title = '"+reviewData.getDisplay_title()+"'";
+		String sqlmulti = "Select ReviewId from review WHERE display_title = '"+reviewData.getDisplay_title().replaceAll("'", "")+"'";
 		PreparedStatement ps;
 		Integer number = -1;
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setString(1, reviewData.getDisplay_title());
+			ps.setString(1, reviewData.getDisplay_title().replaceAll("'", ""));
 			ps.setString(2, reviewData.getMpaa_rating());
 			ps.setInt(3, reviewData.getCritics_pick());
 			ps.setString(4, reviewData.getByline());
@@ -45,13 +42,8 @@ public class ReviewRepository {
 			ps.setInt(10, movieLinkId);
 			ps.setInt(11, multimediaId);
 			int rowCount = ps.executeUpdate();
-			if(rowCount > 0) {
-				status = true;
-			}else {
-				status = false;
-			}
+			
 			 int n = ps.executeUpdate();
-			 System.out.println("===="+sqlmulti);
 			 ps = con.prepareStatement(sqlmulti);
 			 ResultSet val = ps.executeQuery();
 			if(val.next())

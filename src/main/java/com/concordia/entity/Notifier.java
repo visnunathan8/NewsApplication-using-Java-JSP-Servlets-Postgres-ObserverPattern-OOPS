@@ -1,14 +1,9 @@
 package com.concordia.entity;
 
 import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
-
-import com.concordia.interfaces.Observer;
 import com.concordia.interfaces.Subject;
 import com.concordia.observers.NewsFeedListener;
 import com.concordia.repository.NotifierRepository;
-import com.concordia.repository.SubscriberRepository;
 
 public class Notifier implements Subject{
 	

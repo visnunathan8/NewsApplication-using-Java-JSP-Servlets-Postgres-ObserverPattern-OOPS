@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.catalina.User;
-
 import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.UserAccount;
 

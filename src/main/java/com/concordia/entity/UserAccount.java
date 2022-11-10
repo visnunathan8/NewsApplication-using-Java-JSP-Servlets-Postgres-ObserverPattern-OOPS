@@ -8,8 +8,8 @@ public class UserAccount {
 	protected String userEmail;
 	protected String userMobile;
 	protected String userType;
+
 	public UserAccount() {
-		
 	}
 	public UserAccount(String username, String password, String userEmail, String userMobile, String userType) {
 		this.username = username;
@@ -55,6 +55,4 @@ public class UserAccount {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
-	
 }

@@ -3,6 +3,7 @@ package com.concordia.entity;
 import org.json.simple.JSONObject;
 
 public class Person {
+
 	int personId;
 	String firstname;
 	String middlename;
@@ -18,13 +19,13 @@ public class Person {
 		return personId;
 	}
 	public void setPersonId(int personId) {
-		personId = personId;
+		this.personId = personId;
 	}
 	public int getRank() {
 		return rank;
 	}
 	public void setRank(int rank) {
-		rank = rank;
+		this.rank = rank;
 	}
 	public String getFirstName() {
 		return firstname;
@@ -86,10 +87,7 @@ public class Person {
 				person.setTitle( ( personData.get("title")).toString());
 			if(personData.get("title")!=null && !(personData.get("title").toString().isEmpty()))
 				person.setTitle( ( personData.get("title")).toString());
-			
-			}
-	
-	
+		}
 		return person;
 	}
 }

@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import com.concordia.connection.ConnectToSql;
-import com.concordia.entity.MovieLink;
 import com.concordia.entity.MultiMedia;
 
 public class MultimediaRepository {
