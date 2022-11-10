@@ -58,7 +58,7 @@ public class Article {
 		this.headline = headline;
 	}
 
-	public ByLine getByline() {
+	public ByLine getByLine() {
 		return byline;
 	}
 
