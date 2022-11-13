@@ -10,6 +10,7 @@ import com.concordia.repository.MultimediaRepository;
 
 
 class MultimediaRepositoryTest {
+	
 	MultiMedia multimedia = new MultiMedia("image", "http://static01.nyt.com/images/2015/10/07/topics/ao-scott/ao-scott-articleInline.jpg", 220, 163, "Earl Wilson/<br/>The New York Times");
 	
 	@Test

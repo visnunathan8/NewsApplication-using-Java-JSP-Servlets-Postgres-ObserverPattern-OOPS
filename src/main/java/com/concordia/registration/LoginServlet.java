@@ -20,8 +20,8 @@ import com.concordia.repository.UserAccountRepository;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		UserAccountRepository useraccountrep = new UserAccountRepository();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -29,8 +29,10 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = null;
 		UserAccount useraccount = new UserAccount();
+		
 		useraccount.setUsername(username);
 		useraccount.setPassword(password);
+		
 		try { 
 			if (useraccountrep.validate(useraccount)) {
 				session.setAttribute("name", username);

@@ -9,8 +9,10 @@ import com.concordia.entity.Person;
 
 public class PersonRepository {
 	public static int insertToPersonTable(Person person) {
+		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
+		
 		int number = -1;
 		String sql = "Insert into person(firstname,middleaname,lastname,qualifier,title,role,organisation,rank,) values(?,?,?,?,?,?,?,?)";
 		String sqlmulti ="Select personId from person WHERE firstname=? AND lastname=?";
@@ -64,25 +66,34 @@ public class PersonRepository {
 			
 			ps = con.prepareStatement(sqlmulti);
 			
-			if(person!=null && person.getFirstName() != null)
+			if(person!=null && person.getFirstName() != null) {
 				ps.setString(1, person.getFirstName());
-			else
+			}else {
 				ps.setString(1, null);
-			if(person!=null && person.getLastName() != null)
+			}
+			
+			if(person!=null && person.getLastName() != null) {
 				ps.setString(2, person.getLastName());
-			else
+			}else {
 				ps.setString(2, null);
+			}
 			
 			ResultSet val = ps.executeQuery();
-			if(val.next())
+			
+			if(val.next()) {
 				number = val.getInt("headLineId");
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return number;
 	}

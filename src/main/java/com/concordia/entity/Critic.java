@@ -5,12 +5,12 @@ import org.json.simple.JSONObject;
 public class Critic {
 	
 	int CriticId;
+	int multimediaId;
 	String display_name;
 	String sort_name;
 	String status;
 	String bio;
 	String seo_name;
-	int multimediaId;
 	MultiMedia multimedia;
 	
 	public int getMultimediaId() {
@@ -62,25 +62,44 @@ public class Critic {
 		this.multimedia = multimedia;
 	}
 	
+	/**
+	 * 
+	 * @param data
+	 * @return Critic object with all the data in it
+	 */
 	public static Critic setAllCriticDataObject(JSONObject data) {
+		
 		Critic criticData = new Critic();
+		
 		if(data != null) {
-			if(data.get("display_name")!=null && !(data.get("display_name").toString().isEmpty()))
+			
+			if(data.get("display_name")!=null && !(data.get("display_name").toString().isEmpty())) {
 				criticData.setDisplay_name(data.get("display_name").toString());
-			if(data.get("sort_name")!=null && !(data.get("sort_name").toString().isEmpty()))
+			}
+			
+			if(data.get("sort_name")!=null && !(data.get("sort_name").toString().isEmpty())) {
 				criticData.setSort_name(data.get("sort_name").toString());
-			if(data.get("status")!=null && !(data.get("status").toString().isEmpty()))
+			}
+			
+			if(data.get("status")!=null && !(data.get("status").toString().isEmpty())) {
 				criticData.setStatus(data.get("status").toString());
-			if(data.get("bio")!=null && !(data.get("bio").toString().isEmpty()))
+			}
+			
+			if(data.get("bio")!=null && !(data.get("bio").toString().isEmpty())) {
 				criticData.setBio(data.get("bio").toString());
-			if(data.get("seo_name")!=null && !(data.get("seo_name").toString().isEmpty()))
+			}
+			
+			if(data.get("seo_name")!=null && !(data.get("seo_name").toString().isEmpty())) {
 				criticData.setSeo_name(data.get("seo_name").toString());
+			}
+			
 			if(data.get("multimedia")!=null &&  !(data.get("multimedia").toString().isEmpty())) {
 				JSONObject multimediaData = (JSONObject)data.get("multimedia");
 				multimediaData = (JSONObject) multimediaData.get("resource");
 				MultiMedia multimedia = MultiMedia.setAllMultimediaData(multimediaData);
 				criticData.setMultimedia(multimedia);
 			}
+			
 		}
 		return criticData;
 	}

@@ -25,8 +25,8 @@ public class SubscriptionServlet extends HttpServlet {
 		String[] publisherIds = request.getParameterValues("username");
 		Notifier notify = new Notifier(subscriberId);
 		RequestDispatcher dispatcher = null;
+		
 		try {
-			//System.out.println("subscriberId : "+subscriberId);
 			notify.removeObserver(subscriberId);
 			for(int i=0;publisherIds!=null && i<publisherIds.length; i++) {
 				notify.addObserver(subscriberId, Integer.valueOf(publisherIds[i]));

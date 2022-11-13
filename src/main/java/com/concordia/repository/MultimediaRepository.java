@@ -9,6 +9,11 @@ import com.concordia.entity.MultiMedia;
 
 public class MultimediaRepository {
 
+	/**
+	 * 
+	 * @param multimedia
+	 * @return int value returning multimediaId
+	 */
 	public static int insertToMultimediaTable(MultiMedia multimedia) {
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
@@ -19,57 +24,83 @@ public class MultimediaRepository {
 		int number = -1;
 		try {
 			ps = con.prepareStatement(sql);
+			
 			if(multimedia!=null && multimedia.getType() != null) {
 				ps.setString(1, multimedia.getType());
 			
-				if(multimedia!=null && multimedia.getSrc() != null)
+				if(multimedia!=null && multimedia.getSrc() != null) {
 					ps.setString(2, multimedia.getSrc());
-				else
+				}else {
 					ps.setString(2, null);
-				if(multimedia!=null)
+				}
+				
+				if(multimedia!=null) {
 					ps.setInt(3, multimedia.getWidth());
-				else
+				}else {
 					ps.setInt(3, -1);
-				if(multimedia!=null)
+				}
+				
+				if(multimedia!=null) {
 					ps.setInt(4, multimedia.getHeight());
-				else
+				}else {
 					ps.setInt(4, -1);
-				if(multimedia!=null && multimedia.getCredit() != null)
+				}
+				
+				if(multimedia!=null && multimedia.getCredit() != null) {
 					ps.setString(5, multimedia.getCredit());
-				else
+				}else {
 					ps.setString(5, null);
+				}
+				
 				ps.executeUpdate();
 				
-				
 				ps = con.prepareStatement(sqlmulti);
-				if(multimedia!=null && multimedia.getType() != null)
+				if(multimedia!=null && multimedia.getType() != null) {
 					ps.setString(1, multimedia.getType());
-				else 
+				}else {
 					ps.setString(1, null);
-				if(multimedia!=null && multimedia.getSrc() != null)
+				}
+				
+				if(multimedia!=null && multimedia.getSrc() != null) {
 					ps.setString(2, multimedia.getSrc());
-				else
+				}else {
 					ps.setString(2, null);
+				}
+				
 				ResultSet val = ps.executeQuery();
-				if(val.next())
+				
+				if(val.next()) {
 					number = val.getInt("MultimediaId");
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return number;
 	}
 
+	/**
+	 * 
+	 * @param multimediaId
+	 * @return MultiMedia Object with the corresponding data
+	 */
 	public static MultiMedia selectFromMultimedia(int multimediaId) {
+		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
+		
 		MultiMedia multimedia =  new MultiMedia();
 		String sql = "select * from multimedia where MultimediaId = "+multimediaId;
 		PreparedStatement ps;
+		
 		try {
 			ps = con.prepareStatement(sql);
 			ResultSet val = ps.executeQuery();
@@ -84,8 +115,12 @@ public class MultimediaRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return multimedia;
 	}

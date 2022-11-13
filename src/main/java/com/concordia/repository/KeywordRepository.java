@@ -19,49 +19,63 @@ public class KeywordRepository {
 		
 		PreparedStatement ps;
 		try{
+			
 			ps = con.prepareStatement(sql);
 			if(keyword!=null && keyword.getName()!=null) {
 				ps.setString(1, keyword.getName());
 			}else {
 				ps.setString(1, null);
 			}
+			
 			if(keyword!=null && keyword.getValue()!=null) {
 				ps.setString(2, keyword.getValue());
 			}else {
 				ps.setString(2, null);
 			}
+			
 			if(keyword!=null && keyword.getMajor()!=null) {
 				ps.setString(3, keyword.getMajor());
 			}else {
 				ps.setString(3, null);
 			}
+			
 			if(keyword!=null) {
 				ps.setInt(4, keyword.getRank());
 			}else {
 				ps.setInt(4, -1);
 			}
+			
 			ps.executeUpdate();
 			ps = con.prepareStatement(sqlmulti);
-			if(keyword!=null)
+			if(keyword!=null) {
 				ps.setInt(1, keyword.getRank());
-			else 
+			}
+			else  {
 				ps.setInt(1, -1);
+			}
 			
-			if(keyword!=null && keyword.getName() != null)
+			if(keyword!=null && keyword.getName() != null) {
 				ps.setString(2, keyword.getName());
-			else
+			}
+			else {
 				ps.setString(2, null);
+			}
 			
 			ResultSet val = ps.executeQuery();
-			if(val.next())
+			if(val.next()) {
 				number = val.getInt("keywordId");
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		
 		return number;

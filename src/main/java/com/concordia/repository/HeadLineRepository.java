@@ -8,6 +8,12 @@ import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.HeadLine;
 
 public class HeadLineRepository {
+	
+	/**
+	 * 
+	 * @param headline
+	 * @return int value representing HeadLineId
+	 */
 	public static int insertToHeadLineTable(HeadLine headline) {
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
@@ -17,6 +23,7 @@ public class HeadLineRepository {
 		
 		int number = -1;
 		PreparedStatement ps;
+		
 		try{
 			ps = con.prepareStatement(sql);
 			if(headline!=null && headline.getMain()!=null) {
@@ -24,26 +31,31 @@ public class HeadLineRepository {
 			}else {
 				ps.setString(1, null);
 			}
+			
 			if(headline!=null && headline.getKicker()!=null) {
 				ps.setString(2, headline.getKicker());
 			}else {
 				ps.setString(2, null);
 			}
+			
 			if(headline!=null && headline.getContent_kicker()!=null) {
 				ps.setString(3, headline.getContent_kicker());
 			}else {
 				ps.setString(3, null);
 			}
+			
 			if(headline!=null && headline.getPrint_headline()!=null) {
 				ps.setString(4, headline.getPrint_headline());
 			}else {
 				ps.setString(4, null);
 			}
+			
 			if(headline!=null && headline.getSeo()!=null) {
 				ps.setString(5, headline.getSeo());
 			}else {
 				ps.setString(5, null);
 			}
+			
 			if(headline!=null && headline.getSub()!=null) {
 				ps.setString(6, headline.getSub());
 			}else {
@@ -51,18 +63,20 @@ public class HeadLineRepository {
 			}
 		
 			ps.executeUpdate();
-			
-			
 			ps = con.prepareStatement(sqlmulti);
 			
-			if(headline!=null && headline.getMain() != null)
+			if(headline!=null && headline.getMain() != null) {
 				ps.setString(1, headline.getMain());
-			else
+			}else {
 				ps.setString(1, null);
-			if(headline!=null && headline.getKicker() != null)
+			}
+			
+			if(headline!=null && headline.getKicker() != null) {
 				ps.setString(2, headline.getKicker());
-			else
+			}
+			else {
 				ps.setString(2, null);
+			}
 			
 			ResultSet val = ps.executeQuery();
 			if(val.next())
@@ -72,8 +86,12 @@ public class HeadLineRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return number;
 	}

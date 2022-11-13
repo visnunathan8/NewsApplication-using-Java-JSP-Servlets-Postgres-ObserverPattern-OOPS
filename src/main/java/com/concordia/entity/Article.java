@@ -5,16 +5,14 @@ import org.json.simple.JSONObject;
 public class Article {
 
 	int articleId;
-	String abstracts;
-	String web_url;
-	String snippet;
-
-	String source;
 	int mediaId;
 	int headlineId;
 	int keywordId;
 	int bylineId;
-
+	String abstracts;
+	String web_url;
+	String snippet;
+	String source;
 	String pub_date;
 	String document_type;	
 	String print_page;
@@ -65,7 +63,6 @@ public class Article {
 	public void setByline(ByLine byline) {
 		this.byline = byline;
 	}
-	// getters & setters
 
 	public String getAbstracts() {
 		return abstracts;
@@ -179,7 +176,6 @@ public class Article {
 		this.uri = uri;
 	}
 
-	// getter and setters for id
 	public int getArticleId() {
 		return articleId;
 	}
@@ -220,9 +216,17 @@ public class Article {
 		this.bylineId = bylineId;
 	}
 
+	/**
+	 * 
+	 * @param data
+	 * @return Article object with all the data in it
+	 */
 	public static Article setAllArticleDataObject(JSONObject data) {
+		
 		Article articleData = new Article();
+		
 		if (data != null) {
+			
 			if (data.get("abstracts") != null && !(data.get("abstracts").toString().isEmpty()))
 				articleData.setAbstracts(data.get("abstracts").toString());
 
@@ -266,32 +270,27 @@ public class Article {
 				articleData.setUri(data.get("uri").toString());
 
 			if (data.get("media") != null && !(data.get("media").toString().isEmpty())) {
-
 				JSONObject mediaData = (JSONObject) data.get("media");
 				Media media = Media.setAllMediaData(mediaData);
 				articleData.setMedia(media);
-
 			}
+			
 			if (data.get("keyword") != null && !(data.get("keyword").toString().isEmpty())) {
-
 				JSONObject mediaData = (JSONObject) data.get("keyword");
 				Media media = Media.setAllMediaData(mediaData);
 				articleData.setMedia(media);
-
 			}
+			
 			if (data.get("headLine") != null && !(data.get("headLine").toString().isEmpty())) {
-
 				JSONObject mediaData = (JSONObject) data.get("headLine");
 				Media media = Media.setAllMediaData(mediaData);
 				articleData.setMedia(media);
-
 			}
+			
 			if (data.get("byLine") != null && !(data.get("byLine").toString().isEmpty())) {
-
 				JSONObject mediaData = (JSONObject) data.get("byLine");
 				Media media = Media.setAllMediaData(mediaData);
 				articleData.setMedia(media);
-
 			}
 
 		}

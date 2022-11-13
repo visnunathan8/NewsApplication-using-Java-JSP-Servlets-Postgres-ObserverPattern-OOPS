@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import com.concordia.connection.ConnectToSql;
 
 public class SubscriberRepository {
+	
+	/**
+	 * 
+	 * @param publisherId
+	 * @param reviewId
+	 * @return int value representing the insertion value
+	 */
 	public static Integer insertSubscriberData(Integer publisherId, Integer reviewId) {
 		
 		ConnectToSql.loadDriver();
@@ -26,17 +33,29 @@ public class SubscriberRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return rowCount;
 	}
+	
+	/**
+	 * 
+	 * @param subscriberId
+	 * @return list of reviewIds
+	 */
 	public static ArrayList<Integer> getReviewId(Integer subscriberId) {
 		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
+		
 		ArrayList<Integer> reviewIds = new ArrayList<>();
 		int reviewId = -1;
+		
 		try {
 			String sql = "select ReviewId from subscribedData where subscriberId="+subscriberId;
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -49,8 +68,12 @@ public class SubscriberRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return reviewIds;
 	}

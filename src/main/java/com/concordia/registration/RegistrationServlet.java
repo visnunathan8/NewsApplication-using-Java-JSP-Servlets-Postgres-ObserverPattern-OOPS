@@ -22,16 +22,20 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		UserAccountRepository useraccountrep = new UserAccountRepository();
 		String uname = request.getParameter("name");
 		String upwd = request.getParameter("pass");
 		String uemail = request.getParameter("email");
 		String umobile = request.getParameter("contact");
+		
 		UserAccount useraccount = new UserAccount();
+		
 		useraccount.setUsername(uname);
 		useraccount.setPassword(upwd);
 		useraccount.setUserEmail(uemail);
 		useraccount.setUserMobile(umobile);
+		
 		RequestDispatcher dispatcher = null;
 		try {
 			boolean status = useraccountrep.insertToDatabase(useraccount);

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectToSql {
+	
 	private static String dbUrl = "jdbc:mysql://localhost:3306/NewsAppDB?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static String dbUname = "root";
 	private static String dbPassword = "root@123";

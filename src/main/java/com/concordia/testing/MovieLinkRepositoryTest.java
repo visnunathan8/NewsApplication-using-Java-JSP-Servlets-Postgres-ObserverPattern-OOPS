@@ -10,7 +10,9 @@ import com.concordia.repository.MovieLinkRepository;
 
 
 class MovieLinkRepositoryTest {
+	
 	MovieLink movielink = new MovieLink("article1","https://www.nytimes.com/2022/11/03/movies/weird-the-al-yankovic-story-review.html", "Read the New York Times Review of Weird: The Al Yankovic Story" );
+	
 	@Test
 	void testInsertToMovieLinkTable() {
 		Integer value = MovieLinkRepository.insertToMovieLinkTable(movielink);

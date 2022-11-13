@@ -11,6 +11,11 @@ import com.concordia.entity.UserAccount;
 
 public class UserAccountRepository {
 	
+	/**
+	 * 
+	 * @param useraccount
+	 * @return userId of type String
+	 */
 	public String getUserId(UserAccount useraccount)
 	{
 		String id = "";
@@ -33,12 +38,21 @@ public class UserAccountRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @param useraccount
+	 * @return boolean value which mentions the success or failure
+	 */
 	public boolean validate(UserAccount useraccount)
 	{
 		boolean status = false;
@@ -59,12 +73,21 @@ public class UserAccountRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return status;
 	}
 	
+	/**
+	 * 
+	 * @param useraccount
+	 * @return boolean value which mentions the success or failure
+	 */
 	public boolean insertToDatabase(UserAccount useraccount)
 	{
 		boolean status = false;
@@ -97,19 +120,30 @@ public class UserAccountRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return status;
 	}
 	
+	/**
+	 * 
+	 * @return list of UserAccount details
+	 */
 	public static ArrayList<UserAccount> getPublishers()
 	{
+		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
+		
 		ArrayList<UserAccount> publisherIds = new ArrayList<UserAccount>();
 		String sql = "select * from UserAccount where userType = 'A'";
 		PreparedStatement ps;
+		
 		try {
 			ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -125,8 +159,12 @@ public class UserAccountRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return publisherIds;
 	}

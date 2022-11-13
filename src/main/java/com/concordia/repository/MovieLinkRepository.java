@@ -8,6 +8,12 @@ import com.concordia.connection.ConnectToSql;
 import com.concordia.entity.MovieLink;
 
 public class MovieLinkRepository {
+	
+	/**
+	 * 
+	 * @param movielink
+	 * @return int value representing MovieId
+	 */
 	public static int insertToMovieLinkTable(MovieLink movielink)
 	{
 		if(movielink == null) return -1;
@@ -25,17 +31,22 @@ public class MovieLinkRepository {
 			ps.executeUpdate();
 			
 			ps = con.prepareStatement(sqlmulti);
-			if(movielink!=null && movielink.getType() != null)
+			if(movielink!=null && movielink.getType() != null) {
 				ps.setString(1, movielink.getType());
-			else 
+			}else  {
 				ps.setString(1, null);
-			if(movielink!=null && movielink.getURL() != null)
+			}
+			
+			if(movielink!=null && movielink.getURL() != null) {
 				ps.setString(2, movielink.getURL());
-			else
+			}else {
 				ps.setString(2, null);
+			}
+			
 			ResultSet val = ps.executeQuery();
-			if(val.next())
+			if(val.next()) {
 				number = val.getInt("Linkid");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -45,6 +56,12 @@ public class MovieLinkRepository {
 		}
 		return number;
 	}
+	
+	/**
+	 * 
+	 * @param movielinkid
+	 * @return MovieLink Data
+	 */
 	public static MovieLink selectFromMovieLink(int movielinkid) {
 		MovieLink movie = new MovieLink();
 		ConnectToSql.loadDriver();
@@ -64,8 +81,12 @@ public class MovieLinkRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return movie;
 	}

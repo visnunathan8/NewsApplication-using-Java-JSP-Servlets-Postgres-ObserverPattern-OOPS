@@ -21,8 +21,11 @@ public class ReviewServlet extends HttpServlet {
        
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		RequestDispatcher dispatcher = null;
+		
 		Review reviewObj = new Review();
+		
 		reviewObj.setDisplay_title(request.getParameter("disptitle"));
 		reviewObj.setHeadline(request.getParameter("headline"));
 		reviewObj.setMpaa_rating(request.getParameter("mpaa"));
@@ -32,8 +35,10 @@ public class ReviewServlet extends HttpServlet {
 		reviewObj.setOpening_date(request.getParameter("openingdate"));
 		reviewObj.setPublication_date(request.getParameter("publicationdate"));
 		reviewObj.setSummary_short(request.getParameter("shortsummary"));
+		
 		Integer publisherId = Integer.valueOf(request.getParameter("publisherid"));
 		Notifier notify = new Notifier(publisherId);
+		
 		notify.notifyObservers(publisherId, reviewObj);
 		dispatcher = request.getRequestDispatcher("admin.jsp");
 		dispatcher.forward(request, response);

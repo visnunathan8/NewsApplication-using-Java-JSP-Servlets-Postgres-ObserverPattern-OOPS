@@ -11,11 +11,18 @@ import com.concordia.entity.MultiMedia;
 import com.concordia.entity.Review;
 
 public class ReviewRepository {
+	
+	/**
+	 * 
+	 * @param reviewData
+	 * @return int representing reviewId
+	 */
 	public static Integer insertToReviewTable(Review reviewData)
 	{
 		
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
+		
 		MultiMedia multimedia = reviewData.getMultimedia();
 		MovieLink movieLink = reviewData.getMovielink();
 		
@@ -32,6 +39,7 @@ public class ReviewRepository {
 		String sqlmulti = "Select ReviewId from review WHERE display_title = '"+reviewData.getDisplay_title().replaceAll("'", "")+"'";
 		PreparedStatement ps;
 		Integer number = -1;
+		
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, reviewData.getDisplay_title().replaceAll("'", ""));
@@ -50,18 +58,27 @@ public class ReviewRepository {
 			 int n = ps.executeUpdate();
 			 ps = con.prepareStatement(sqlmulti);
 			 ResultSet val = ps.executeQuery();
-			if(val.next())
+			if(val.next()) {
 				number = val.getInt("ReviewId");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return number;
 	}
 	
+	/**
+	 * 
+	 * @return List of review details
+	 */
 	public static ArrayList<Review> selectFromReviewTable()
 	{
 		
@@ -93,11 +110,21 @@ public class ReviewRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return reviewDatas;
 	}
+	
+	/**
+	 * 
+	 * @param reviewId
+	 * @return Review object with corresponding value
+	 */
 	public static Review selectAReview(Integer reviewId)
 	{
 		
@@ -110,6 +137,7 @@ public class ReviewRepository {
 		try {
 			ps = con.prepareStatement(sql);
 			ResultSet val = ps.executeQuery();
+			
 			while(val.next()) {
 				reviewData.setDisplay_title(val.getString("display_title"));
 				reviewData.setMpaa_rating(val.getString("mpaa_rating"));
@@ -127,8 +155,12 @@ public class ReviewRepository {
 			e.printStackTrace();
 		}finally {
 			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ignore) {}
+				try { 
+					con.close(); 
+				} 
+				catch (SQLException ignore) {
+					ignore.printStackTrace();
+				}
 		}
 		return reviewData;
 	}

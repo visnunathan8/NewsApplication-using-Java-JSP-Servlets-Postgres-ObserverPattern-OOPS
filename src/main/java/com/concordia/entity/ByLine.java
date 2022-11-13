@@ -34,14 +34,25 @@ public class ByLine {
 		this.person = person;
 	}
 	
+	/**
+	 * 
+	 * @param byLineData
+	 * @return ByLine object with all the data in it
+	 */
 	public static ByLine setAllByLineData(JSONObject byLineData) {
+		
 		ByLine byLine = new ByLine();
+		
 		if(byLineData != null) {
-			if(byLineData.get("original")!=null && !(byLineData.get("original").toString().isEmpty()))
+			
+			if(byLineData.get("original")!=null && !(byLineData.get("original").toString().isEmpty())) {
 				byLine.setOriginal( ( byLineData.get("original")).toString());
-			if(byLineData.get("organisation")!=null && !(byLineData.get("organisation").toString().isEmpty()))
+			}
+			
+			if(byLineData.get("organisation")!=null && !(byLineData.get("organisation").toString().isEmpty())) {
 				byLine.setOrganisation( ( byLineData.get("organisation")).toString());
 			}
+		}
 		return byLine;
 	}
 

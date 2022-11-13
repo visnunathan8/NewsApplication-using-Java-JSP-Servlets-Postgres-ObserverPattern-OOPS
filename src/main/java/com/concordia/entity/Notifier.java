@@ -41,13 +41,13 @@ public class Notifier implements Subject{
 	
 	@Override
 	public void notifyObservers(Integer publisherId, Review review) {
-		for (int i = 0; i < subscribers.size(); i++) 
+		for (int i = 0; i < subscribers.size(); i++) {
 			observer.update(publisherId, review);
+		}
 	}
 
 	@Override
 	public void addObserver(Integer subscriberId, Integer publisherId) {
-		
 		subscribers.add(publisherId);
 		observer.addSubscriberToPublisher(subscriberId, publisherId);
 	}

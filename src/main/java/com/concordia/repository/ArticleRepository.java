@@ -10,6 +10,14 @@ import com.concordia.entity.Keyword;
 import com.concordia.entity.HeadLine;
 import com.concordia.entity.ByLine;
 public class ArticleRepository {
+	
+	/**
+	 * 
+	 * @param articleData
+	 * @return boolean value representing the insertion
+	 * 			True : successful
+	 * 			False : failure
+	 */
 	public static boolean insertToArticleTable(Article articleData)
 	{
 		ConnectToSql.loadDriver();
@@ -25,10 +33,10 @@ public class ArticleRepository {
 		int headlineId = HeadLineRepository.insertToHeadLineTable(headline);
 		int byLineId = ByLineRepository.insertToByLineTable(byline);
 		
-		
 		boolean status = false;
 		String sql = "Insert into article(abstract, web_url,snippet,source,mediaId,headlineId,keywordId,pub_date,document_type,news_desk,section_name,bylineId,type_of_material,_id,word_count,uri) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps;
+		
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, articleData.getAbstracts());
@@ -49,14 +57,17 @@ public class ArticleRepository {
 			ps.setInt(16, keywordId);
 			ps.setInt(17, byLineId);
 			int rowCount = ps.executeUpdate();
+			
 			if(rowCount > 0) {
 				status = true;
 			}else {
 				status = false;
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return status;
 	}
 }
