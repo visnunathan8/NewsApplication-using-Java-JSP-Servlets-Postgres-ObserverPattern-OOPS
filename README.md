@@ -56,5 +56,4 @@ Will contain the basic data's form the api along with some custom review data. t
 # SUBSCRIBING REVIEWER AND SUBSCRIBED DATA LIST
 ![image](https://user-images.githubusercontent.com/30067377/201805081-6aba6992-e10b-4e33-bc9a-bffd871cd457.png)
 
-  
-![image](https://user-images.githubusercontent.com/30067377/201804907-84a75ded-f0b0-49da-857b-64a89949b7d0.png)
+ 
