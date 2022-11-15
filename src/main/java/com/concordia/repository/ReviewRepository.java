@@ -19,7 +19,7 @@ public class ReviewRepository {
 	 */
 	public static Integer insertToReviewTable(Review reviewData)
 	{
-		
+	
 		ConnectToSql.loadDriver();
 		Connection con = ConnectToSql.getConnection();
 		
@@ -53,8 +53,7 @@ public class ReviewRepository {
 			ps.setString(9, reviewData.getDate_updated());
 			ps.setInt(10, movieLinkId);
 			ps.setInt(11, multimediaId);
-			int rowCount = ps.executeUpdate();
-			
+		
 			 int n = ps.executeUpdate();
 			 ps = con.prepareStatement(sqlmulti);
 			 ResultSet val = ps.executeQuery();
