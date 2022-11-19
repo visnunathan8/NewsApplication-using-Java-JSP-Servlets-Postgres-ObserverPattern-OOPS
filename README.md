@@ -57,3 +57,5 @@ Will contain the basic data's form the api along with some custom review data. t
 ![image](https://user-images.githubusercontent.com/30067377/201805081-6aba6992-e10b-4e33-bc9a-bffd871cd457.png)
 
  
+# VIDEO EXPLANATION
+https://drive.google.com/file/d/1EhZCfjIxwD5eYHFlfHr_6XS7_29jjQBy/view?usp=sharing
